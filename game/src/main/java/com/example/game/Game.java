@@ -1,6 +1,7 @@
-package com.example.quiz;
+package com.example.game;
 
-import org.springframework.boot.autoconfigure.security.SecurityProperties;
+import com.example.game.Round;
+import com.example.game.Score;
 
 import java.util.List;
 
