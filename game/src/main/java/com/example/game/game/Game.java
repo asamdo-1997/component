@@ -1,6 +1,6 @@
 package com.example.game.game;
 
-import com.example.game.Round;
+import com.example.game.round.Round;
 import com.example.game.Score;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
