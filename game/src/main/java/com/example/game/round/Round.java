@@ -1,19 +1,21 @@
 package com.example.game.round;
 
-import com.example.game.Score;
 import com.example.game.answer.Answer;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.example.game.score.Score;
+import lombok.Data;
 
 import java.util.List;
 
-@NoArgsConstructor
-@Getter
-@Setter
+@Data
 public class Round {
 
     private List<Integer> vocabIds;
     private List<Answer> answers;
-    private Score score;
+    private List<Score> scores;
+    private boolean done;
+    private Integer nextUser;
+
+
+    //todo vorschläge
+    //auch aus anderen Listen
 }

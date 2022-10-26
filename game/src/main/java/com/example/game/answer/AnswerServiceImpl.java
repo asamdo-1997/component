@@ -14,6 +14,8 @@ public class AnswerServiceImpl implements AnswerService{
     public boolean answer(Answer answer){
         var result = vocabService.checkAnswer(answer);
         answer.setRight(result);
+
+        //todo save result to round
         return result;
     }
 }

@@ -1,7 +1,7 @@
 package com.example.game.game;
 
 import com.example.game.round.Round;
-import com.example.game.Score;
+import com.example.game.score.Score;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,4 +18,6 @@ public class Game {
     private Score score;
     private int roundAmount;
     private List<Round> rounds;
+
+    //Kategorie festlegen
 }

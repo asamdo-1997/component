@@ -36,4 +36,9 @@ public class GameServiceImpl implements GameService{
 
         return game;
     }
+
+    @Override
+    public List<Game> getUsersGame(int user) {
+        return null;
+    }
 }
