@@ -18,7 +18,7 @@ public interface TranslationService {
 
     /**
      * Gibt die Überseetzung zurück
-     *
+     * // toDo Param bitte ergänzen
      * @param amount
      * @param notToUse
      */

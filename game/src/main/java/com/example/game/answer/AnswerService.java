@@ -17,7 +17,7 @@ public interface AnswerService {
     /**
      * überprüft die Antwort auf die Richtigkeit
      *
-     * @param answer Antwortübergabe für die Antwort
+     * @param answer übergabe für die Antwort
      */
     boolean answer(Answer answer);
 }
