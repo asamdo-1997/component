@@ -16,7 +16,7 @@ public class AnswerServiceImpl implements AnswerService {
     @Autowired
     VocabService vocabService;
 
-    private AnswerResultDto checkAnswer(AnswerDto answerDto) {
+    public AnswerResultDto checkAnswer(AnswerDto answerDto) {
         var translations = vocabService.getVocabTranslation(answerDto.getVocabId());
 
         Optional<Translation> opt = translations.stream()

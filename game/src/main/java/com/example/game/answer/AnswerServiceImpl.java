@@ -12,10 +12,11 @@ public class AnswerServiceImpl implements AnswerService{
 
     @Override
     public boolean answer(Answer answer){
-        var result = vocabService.checkAnswer(answer);
+       /* var result = vocabService.checkAnswer(answer);
         answer.setRight(result);
 
         //todo save result to round
-        return result;
+        return result;*/
+        return true;
     }
 }

@@ -1,6 +1,7 @@
 package com.example.game.feign;
 
 import com.example.game.answer.Answer;
+import com.example.game.answer.AnswerResultDto;
 
 import java.util.List;
 
@@ -10,7 +11,7 @@ public class VocabService {
         return null;
     }
 
-    public boolean checkAnswer(Answer answer){
-        return true;
+    public AnswerResultDto checkAnswer(Answer answer){
+        return null;
     }
 }

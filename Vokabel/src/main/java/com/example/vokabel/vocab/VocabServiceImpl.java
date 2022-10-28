@@ -16,7 +16,6 @@ import java.util.List;
 @Service
 public class VocabServiceImpl implements VocabService {
 
-
     @Autowired
     private VocabRepo vocabRepo;
 
