@@ -12,13 +12,15 @@ import java.util.List;
 * @version 1.0
 */
 
-/**
- * Gibt die Überseetzung zurück
- *
- * @param amount
- * @param notToUse
- */
+
 
 public interface TranslationService {
+
+    /**
+     * Gibt die Überseetzung zurück
+     *
+     * @param amount
+     * @param notToUse
+     */
     List<Translation> getTranslationsForGame(int amount, List<Integer> notToUse);
 }

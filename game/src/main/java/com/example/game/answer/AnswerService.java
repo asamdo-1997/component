@@ -11,12 +11,13 @@ package com.example.game.answer;
 * @version 1.0
 */
 
-/**
- * überprüft die Antwort auf die Richtigkeit
- *
- * @param answer Antwortübergabe für die Antwort
- */
+
 public interface AnswerService {
 
+    /**
+     * überprüft die Antwort auf die Richtigkeit
+     *
+     * @param answer Antwortübergabe für die Antwort
+     */
     boolean answer(Answer answer);
 }

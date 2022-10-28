@@ -12,12 +12,13 @@ package com.example.user;
 */
 
 
-/**
- * erstellt einen User
- *
- * @param user übergabe des Users
- */
+
 public interface UserService {
 
+    /**
+     * erstellt einen User
+     *
+     * @param user übergabe des Users
+     */
     public void createUser(User user);
 }
