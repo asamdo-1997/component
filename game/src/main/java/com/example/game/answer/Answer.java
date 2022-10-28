@@ -7,7 +7,7 @@ import lombok.Data;
 public class Answer {
 
     private int id;
-    private String word;
+    private Integer translationId;
     private boolean right;
     private int vocabId;
 

@@ -6,7 +6,7 @@ import java.util.List;
 
 public class VocabService {
 
-    public List<Integer> getVocabsForGame(int round){
+    public List<Question> getQuestionsForGame(int round){
         return null;
     }
 

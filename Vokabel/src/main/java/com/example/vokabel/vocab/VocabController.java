@@ -1,4 +1,4 @@
-package com.example.vokabel;
+package com.example.vokabel.vocab;
 
 
 import org.springframework.beans.factory.annotation.Autowired;

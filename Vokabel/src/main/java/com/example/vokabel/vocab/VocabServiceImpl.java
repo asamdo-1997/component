@@ -1,5 +1,8 @@
-package com.example.vokabel;
+package com.example.vokabel.vocab;
 
+import com.example.vokabel.translation.Translation;
+import com.example.vokabel.answer.AnswerDto;
+import com.example.vokabel.translation.TranslationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -7,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -16,15 +20,44 @@ public class VocabServiceImpl implements VocabService {
     @Autowired
     private VocabRepo vocabRepo;
 
+    @Autowired
+    private TranslationService translationService;
+
 
     @Override
-    public List<Integer> getVocabsForGame(int round) {
-        return null;
+    public List<QuestionDto> getQuestionsForGame(int rounds, String category) {
+
+        //todo random
+        var vocabs = vocabRepo.findAllByCategoryEquals(category);
+        var translations = translationService
+                .getTranslationsForGame(1, Collections.singletonList(1));
+
+        var questions = new ArrayList<QuestionDto>();
+
+        for(int i = 0; i< rounds*5; i++){
+            var question = new QuestionDto();
+            var vocab = vocabs.get(i);
+            question.setVocabId(vocab.getId());
+            List<Integer> translationIds = new ArrayList<>();
+            //todo random
+            translationIds.add(vocab.getTranslations().get(i).getId());
+            //todo more
+            translationIds.add(translations.get(i).getId());
+            questions.add(question);
+        }
+
+
+        return questions;
     }
 
     @Override
     public boolean checkAnswer(AnswerDto dto) {
         return false;
+    }
+
+    @Override
+    public List<Translation> getVocabTranslation(int vocabId){
+        return vocabRepo.findById(vocabId).get().getTranslations();
     }
 
     @Override

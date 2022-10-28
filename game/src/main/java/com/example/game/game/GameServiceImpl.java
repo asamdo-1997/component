@@ -1,5 +1,6 @@
 package com.example.game.game;
 
+import com.example.game.feign.Question;
 import com.example.game.round.Round;
 import com.example.game.feign.VocabService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,17 +22,17 @@ public class GameServiceImpl implements GameService{
     public Game createGame(int user1, int user2){
         var rounds = Integer.parseInt(roundAmount);
         Game game = new Game();
-        List<Integer> vocabs = vocabService.getVocabsForGame(rounds);
+        List<Question> questions = vocabService.getQuestionsForGame(rounds);
        game.setRounds(new ArrayList<>());
        var vocabCount = 0;
        for (int i = 0; i<rounds; i++){
            var round = new Round();
-           List<Integer> ids = new ArrayList<>();
+           List<Question> roundQuestions = new ArrayList<>();
            for (int x = 0; x <5; x++) {
-               ids.add(vocabs.get(vocabCount));
+               roundQuestions.add(questions.get(vocabCount));
                vocabCount++;
            }
-           round.setVocabIds(ids);
+           round.setVocabs(roundQuestions);
        }
 
         return game;

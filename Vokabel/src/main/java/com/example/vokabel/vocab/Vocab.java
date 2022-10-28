@@ -1,5 +1,6 @@
-package com.example.vokabel;
+package com.example.vokabel.vocab;
 
+import com.example.vokabel.translation.Translation;
 import lombok.Data;
 
 import javax.persistence.*;
