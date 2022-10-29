@@ -20,6 +20,11 @@ public interface GameService {
  */
     Game createGame(int user1, int user2);
     // toDo bitte erklären
+
+    /**
+     * Sucht alle spiele die ein User aktuell speilt
+     * @param user Spieler nach dem gesucht wird
+     */
     List<Game> getUserGames(int user);
 
 

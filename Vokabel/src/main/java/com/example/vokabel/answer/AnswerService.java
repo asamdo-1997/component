@@ -9,4 +9,5 @@ package com.example.vokabel.answer;
 * @version 1.0
 */
 public interface AnswerService {
+    AnswerResultDto checkAnswer(AnswerDto answerDto);
 }

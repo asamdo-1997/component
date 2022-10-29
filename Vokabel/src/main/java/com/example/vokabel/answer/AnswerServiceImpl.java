@@ -16,6 +16,7 @@ public class AnswerServiceImpl implements AnswerService {
     @Autowired
     VocabService vocabService;
 
+    @Override
     public AnswerResultDto checkAnswer(AnswerDto answerDto) {
         var translations = vocabService.getVocabTranslation(answerDto.getVocabId());
 
