@@ -41,19 +41,6 @@ public interface VocabService {
      */
     List<Translation> getVocabTranslation(int vocabId);
 
-    /**
-     * hinzufügen eines Vocabels
-     *
-     * @param word übergabe des Wortes, welches zum Vokabeln hinzugefügt werden soll
-     */
-    void addVocab(String word);
-
-    /**
-     * hinzufügen von Übersetzung
-     *
-     * @param vocabId übergabe des Vocalebls, für welches die übersetzung hinzugefügt werden soll
-     */
-    void addTranslation(int vocabId);
 
     /**
      * //ToDo
