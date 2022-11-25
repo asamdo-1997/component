@@ -20,5 +20,7 @@ public interface UserService {
      *
      * @param user übergabe des Users
      */
-    public void createUser(User user);
+    public void saveUser(User user);
+
+    void deleteUser(int id);
 }

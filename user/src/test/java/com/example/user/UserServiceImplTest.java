@@ -2,10 +2,7 @@ package com.example.user;
 
 import org.junit.Before;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.Assert;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 class UserServiceImplTest {
 
@@ -23,7 +20,7 @@ class UserServiceImplTest {
         User user = new User();
 
         //Act
-        userService.createUser(user);
+        userService.saveUser(user);
 
         //Assert
         Assert.notNull(user);

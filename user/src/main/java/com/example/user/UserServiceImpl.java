@@ -1,9 +1,19 @@
 package com.example.user;
 
-public class UserServiceImpl implements UserService{
+import org.springframework.beans.factory.annotation.Autowired;
+
+public class UserServiceImpl implements UserService {
+
+    @Autowired
+    UserRepository userRepository;
 
     @Override
-    public void createUser(User user) {
+    public void saveUser(User user) {
+        userRepository.save(user);
+    }
 
+    @Override
+    public void deleteUser(int id){
+        userRepository.deleteById(id);
     }
 }

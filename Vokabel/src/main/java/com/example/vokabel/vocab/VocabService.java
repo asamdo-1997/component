@@ -42,6 +42,10 @@ public interface VocabService {
     List<Translation> getVocabTranslation(int vocabId);
 
 
+    void addVocab(String word);
+
+    void addTranslation(int vocabId);
+
     /**
      * //ToDo
      *
