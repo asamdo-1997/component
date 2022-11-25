@@ -1,17 +1,24 @@
 package com.example.user;
 
 
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("user")
 public class UserController {
 
-    @PostMapping("")
-    public void saveUser(@RequestBody User user){
+    @Autowired
+    UserService userService;
 
+    @PostMapping("")
+    public void saveUser(@RequestBody User user) {
+        userService.saveUser(user);
     }
+
+    @DeleteMapping("/{userId}")
+    public void deleteUser(@PathVariable int userId){
+        userService.deleteUser(userId);
+    }
+
 }
