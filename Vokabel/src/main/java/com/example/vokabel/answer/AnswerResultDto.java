@@ -9,5 +9,5 @@ import java.util.List;
 public class AnswerResultDto {
 
     boolean right;
-    List<TranslationDto> translations;
+    int translation;
 }

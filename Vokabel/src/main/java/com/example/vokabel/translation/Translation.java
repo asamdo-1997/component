@@ -1,6 +1,7 @@
 package com.example.vokabel.translation;
 
 import com.example.vokabel.vocab.Vocab;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -19,5 +20,6 @@ public class Translation {
 
     @ManyToOne
     @JoinColumn(name = "vocabId")
+    @JsonBackReference
     private Vocab vocab;
 }

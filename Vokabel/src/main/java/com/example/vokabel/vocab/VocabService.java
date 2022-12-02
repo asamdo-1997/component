@@ -25,7 +25,7 @@ public interface VocabService {
      * @param rounds übergabe für die Anzahl der Runden
      * @param category übergabe für welche Kategrie von Fragen
      */
-    List<QuestionDto> getQuestionsForGame(int rounds, String category);
+    List<Question> getQuestionsForGame(String category);
 
     /**
      * Überprüft die Antwort

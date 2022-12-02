@@ -13,7 +13,6 @@ public class TranslationServiceImpl implements TranslationService{
 
     @Override
     public List<Translation> getTranslationsForGame(int amount, List<Integer> notToUse){
-        //todo welche sollen wirklich genommen werden
-        return translationRepo.findAll();
+        return translationRepo.findRandomByLimit(amount, notToUse);
     }
 }

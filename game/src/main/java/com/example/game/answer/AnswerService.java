@@ -19,5 +19,5 @@ public interface AnswerService {
      *
      * @param answer übergabe für die Antwort
      */
-    boolean answer(Answer answer);
+    int answer(Answer answer);
 }

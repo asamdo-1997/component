@@ -13,4 +13,24 @@
     <name>game-service</name>
     <description>Game-Service for vokabeltrainer</description>
 
+    <dependencies>
+      <!--   <dependency>
+             <groupId>org.springframework.cloud</groupId>
+             <artifactId>spring-cloud-starter-openfeign</artifactId>
+             <version>2.2.1.RELEASE</version>
+         </dependency>-->
+
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+            <version>3.1.5</version>
+        </dependency>
+
+     <!--   <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>-->
+    </dependencies>
+
+
 </project>
