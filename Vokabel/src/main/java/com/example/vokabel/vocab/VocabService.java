@@ -1,6 +1,7 @@
 package com.example.vokabel.vocab;
 
 import com.example.vokabel.answer.AnswerDto;
+import com.example.vokabel.answer.AnswerResultDto;
 import com.example.vokabel.translation.Translation;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -27,12 +28,7 @@ public interface VocabService {
      */
     List<Question> getQuestionsForGame(String category);
 
-    /**
-     * Überprüft die Antwort
-     *
-     * @param dto //toDo Param bitte erklären!
-     */
-    boolean checkAnswer(AnswerDto dto);
+
 
     /**
      * Gibt die übersetzung der Vocabeln zurück
@@ -53,4 +49,8 @@ public interface VocabService {
      * @param category toDo
      */
     void importList(MultipartFile file,String category) throws IOException;
+
+    Vocab findVocabById(int id);
+
+    AnswerResultDto checkAnswer(AnswerDto answerDto);
 }

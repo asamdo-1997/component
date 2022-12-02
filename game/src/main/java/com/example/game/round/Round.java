@@ -1,7 +1,6 @@
 package com.example.game.round;
 
 import com.example.game.answer.Answer;
-import com.example.game.feign.Question;
 import com.example.game.game.Game;
 import com.example.game.score.Score;
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -24,8 +23,8 @@ public class Round {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "round")
     private List<Question> questions;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "round")
-    private List<Answer> answers;
+   /* @OneToMany(cascade = CascadeType.ALL, mappedBy = "round")
+    private List<Answer> answers;*/
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "round")
     private List<Score> scores;

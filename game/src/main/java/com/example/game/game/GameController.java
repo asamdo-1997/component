@@ -1,5 +1,8 @@
 package com.example.game.game;
 
+import com.example.game.answer.AnswerDto;
+import com.example.game.answer.AnswerResultDto;
+import com.example.game.answer.AnswerService;
 import com.example.game.round.Round;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +15,11 @@ public class GameController {
 
     @Autowired
     GameService gameService;
+
+    @Autowired
+    AnswerService answerService;
+
+
 
     @GetMapping("/createGame/{user1}/{user2}/{category}")
     public int createGame(@PathVariable int user1, @PathVariable int user2, @PathVariable String category){
@@ -28,8 +36,10 @@ public class GameController {
     }
 
 
-    //return transalationId
-    public int answer(int questionId, int translationId){
-        return  0;
+    @PostMapping("/check")
+    public AnswerResultDto checkAnswer(@RequestBody AnswerDto input){
+        return answerService.checkAnswer(input);
     }
+    //return transalationId
+
 }

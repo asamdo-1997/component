@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class AnswerServiceTest {
+class TranslationServiceTest {
 
     @Autowired
     private AnswerService answerService;

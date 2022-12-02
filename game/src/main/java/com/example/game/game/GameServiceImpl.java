@@ -1,6 +1,6 @@
 package com.example.game.game;
 
-import com.example.game.feign.Question;
+import com.example.game.round.Question;
 import com.example.game.feign.VocabService;
 import com.example.game.round.Round;
 import com.example.game.score.Score;

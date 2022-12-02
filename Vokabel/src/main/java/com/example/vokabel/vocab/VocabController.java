@@ -1,6 +1,9 @@
 package com.example.vokabel.vocab;
 
 
+import com.example.vokabel.answer.AnswerDto;
+import com.example.vokabel.answer.AnswerResultDto;
+import com.example.vokabel.translation.TranslationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -15,6 +18,9 @@ public class VocabController {
     @Autowired
     VocabService vocabService;
 
+    @Autowired
+    TranslationService translationService;
+
     @PostMapping("/list/{category}")
     public void importList(@RequestParam("thumbnail") MultipartFile file, @PathVariable String category) throws IOException {
         vocabService.importList(file, category);
@@ -26,6 +32,11 @@ public class VocabController {
         return result;
     }
 
+
+    @PostMapping("/checkAnswer")
+    public AnswerResultDto checkAnswer(@RequestBody AnswerDto dto){
+        return vocabService.checkAnswer(dto);
+    }
 
     //todo
     @GetMapping("/getCategories")

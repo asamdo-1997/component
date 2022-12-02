@@ -1,8 +1,10 @@
-package com.example.game.feign;
+package com.example.game.round;
 
+import com.example.game.answer.Answer;
 import com.example.game.round.Round;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
+import org.hibernate.mapping.ToOne;
 
 import javax.persistence.*;
 import java.util.List;
@@ -15,9 +17,7 @@ public class Question {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
-    @Column
-    private int vocabId;
+    private int userId;
 
     @ElementCollection
     private List<Integer> translationIds;
@@ -26,4 +26,7 @@ public class Question {
     @JoinColumn(name = "roundId")
     @JsonBackReference
     private Round round;
+
+    @OneToMany
+    private List<Answer> answer;
 }

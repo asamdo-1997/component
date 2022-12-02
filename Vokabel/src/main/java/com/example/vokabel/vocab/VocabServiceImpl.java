@@ -1,7 +1,9 @@
 package com.example.vokabel.vocab;
 
 import com.example.vokabel.answer.AnswerDto;
+import com.example.vokabel.answer.AnswerResultDto;
 import com.example.vokabel.translation.Translation;
+import com.example.vokabel.translation.TranslationDto;
 import com.example.vokabel.translation.TranslationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -73,10 +75,6 @@ public class VocabServiceImpl implements VocabService {
         return questions;
     }
 
-    @Override
-    public boolean checkAnswer(AnswerDto dto) {
-        return false;
-    }
 
     @Override
     public List<Translation> getVocabTranslation(int vocabId) {
@@ -133,5 +131,33 @@ public class VocabServiceImpl implements VocabService {
         word = word.replaceAll(" ", "");
         word = word.replaceAll(":", "");
         return word;
+    }
+
+    @Override
+    public Vocab findVocabById(int id){
+        return vocabRepo.findById(id).get();
+    }
+
+    @Override
+    public AnswerResultDto checkAnswer(AnswerDto answerDto) {
+
+        var vocab = findVocabById(answerDto.getVocabId());
+        var translations = vocab.getTranslations();
+
+        Optional<Translation> opt = translations.stream()
+                .filter(x -> x.getId() == answerDto.getTranslationId()).findFirst();
+        AnswerResultDto result = new AnswerResultDto();
+        result.setCorrect(opt.isPresent());
+        List<TranslationDto> transDtos = new ArrayList<>();
+        for (Translation translation: translations){
+            TranslationDto temp = new TranslationDto();
+            temp.setId(translation.getId());
+            temp.setName(translation.getName());
+            transDtos.add(temp);
+        }
+        result.setTranslations(transDtos);
+        result.setVocab(vocab.getName());
+        result.setVocabId(vocab.getId());
+        return result;
     }
 }

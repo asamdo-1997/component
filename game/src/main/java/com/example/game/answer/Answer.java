@@ -1,8 +1,10 @@
 package com.example.game.answer;
 
+import com.example.game.round.Question;
 import com.example.game.round.Round;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
+import org.hibernate.mapping.ToOne;
 
 import javax.persistence.*;
 
@@ -15,22 +17,14 @@ public class Answer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column
     private int translationId;
-
-
-    @Column()
-    private boolean checked;
-
-    @Column
-    private int vocabId;
-
-    @Column
+    private boolean correct;
     private int userId;
+    private int correctTranslationId;
 
     @ManyToOne
-    @JoinColumn(name = "roundId")
+    @JoinColumn(name = "questionId")
     @JsonBackReference
-    private Round round;
+    private Question question;
 
 }
