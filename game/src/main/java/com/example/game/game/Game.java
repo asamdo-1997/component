@@ -34,4 +34,7 @@ public class Game {
     @Column
     private boolean done;
 
+    @Column
+    private Integer winnerId;
+
 }
