@@ -41,6 +41,6 @@ public class VocabController {
     //todo
     @GetMapping("/getCategories")
     public List<String> getAllCategories() {
-        return null;
+        return vocabService.getAllCategories();
     }
 }

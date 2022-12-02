@@ -16,9 +16,6 @@ public class TranslationServiceImpl implements TranslationService{
     @Autowired
     private TranslationRepo translationRepo;
 
-    @Autowired
-    private VocabService vocabService;
-
     @Override
     public List<Translation> getTranslationsForGame(int amount, List<Integer> notToUse){
         return translationRepo.findRandomByLimit(amount, notToUse);

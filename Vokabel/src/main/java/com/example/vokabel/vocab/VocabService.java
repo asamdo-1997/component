@@ -53,4 +53,6 @@ public interface VocabService {
     Vocab findVocabById(int id);
 
     AnswerResultDto checkAnswer(AnswerDto answerDto);
+
+    List<String> getAllCategories();
 }

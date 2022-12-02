@@ -36,7 +36,7 @@ public class VocabServiceImpl implements VocabService {
     @Override
     public List<Question> getQuestionsForGame(String category) {
 
-        //todo random
+
         var amount = Integer.parseInt(roundAmount) * Integer.parseInt(perRound);
         //List<Vocab> vocabs = vocabRepo.findAllByCategoryEqualsOOrder(category);
         List<Vocab> vocabs = vocabRepo.findRandomByCategory(category, amount);
@@ -134,7 +134,7 @@ public class VocabServiceImpl implements VocabService {
     }
 
     @Override
-    public Vocab findVocabById(int id){
+    public Vocab findVocabById(int id) {
         return vocabRepo.findById(id).get();
     }
 
@@ -149,7 +149,7 @@ public class VocabServiceImpl implements VocabService {
         AnswerResultDto result = new AnswerResultDto();
         result.setCorrect(opt.isPresent());
         List<TranslationDto> transDtos = new ArrayList<>();
-        for (Translation translation: translations){
+        for (Translation translation : translations) {
             TranslationDto temp = new TranslationDto();
             temp.setId(translation.getId());
             temp.setName(translation.getName());
@@ -159,5 +159,10 @@ public class VocabServiceImpl implements VocabService {
         result.setVocab(vocab.getName());
         result.setVocabId(vocab.getId());
         return result;
+    }
+
+    @Override
+    public List<String> getAllCategories() {
+        return vocabRepo.findAllCategories();
     }
 }
