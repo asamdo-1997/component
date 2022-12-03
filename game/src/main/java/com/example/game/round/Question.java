@@ -29,4 +29,6 @@ public class Question {
 
     @OneToMany
     private List<Answer> answer;
+
+    boolean done;
 }

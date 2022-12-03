@@ -1,6 +1,7 @@
 package com.example.game.answer;
 
 import com.example.game.feign.VocabService;
+import com.example.game.game.GameRepo;
 import com.example.game.question.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,9 @@ public class AnswerServiceImpl implements AnswerService {
     @Autowired
     AnswerRepo answerRepo;
 
+    @Autowired
+    GameRepo gameRepo;
+
 
     @Override
     public AnswerResultDto checkAnswer(AnswerDto input) {
@@ -28,13 +32,12 @@ public class AnswerServiceImpl implements AnswerService {
         answer.setQuestion(question);
         answer.setTranslationId(input.getTranslationId());
         answer.setCorrect(result.correct);
-        if (answer.isCorrect()){
+        if (answer.isCorrect()) {
 
             var game = question.getRound().getGame();
-            if (game.getUser1() == input.getUserId()){
+            if (game.getUser1() == input.getUserId()) {
                 game.setUser1(game.getUser1() + 1);
-            }
-            else {
+            } else {
                 game.setUser2(game.getUser2() + 1);
             }
         }
@@ -46,6 +49,26 @@ public class AnswerServiceImpl implements AnswerService {
         answerRepo.save(answer);
         result.setCorrectAnswer(correctTranslation);
 
+        //check if question is done
+        if (question.getAnswer().size() == 2) {
+            question.setDone(true);
+        }
+        //check if round is finished
+        var round = question.getRound();
+        var game = round.getGame();
+        if (question.isDone() && round.getQuestions().stream().filter(x -> !x.isDone()).findFirst().isEmpty()) {
+            round.setDone(true);
+            if (game.getNextUser() == game.getUser1()) {
+                game.setNextUser(game.getUser2());
+            } else {
+                game.setNextUser(game.getUser1());
+            }
+        }
+
+        if (round.isDone() && game.getRounds().stream().filter(x -> !x.isDone()).findFirst().isEmpty()) {
+            game.setDone(true);
+        }
+        gameRepo.save(game);
         return result;
     }
 }
