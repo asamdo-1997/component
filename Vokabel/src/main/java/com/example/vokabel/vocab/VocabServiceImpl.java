@@ -1,17 +1,18 @@
 package com.example.vokabel.vocab;
 
-import com.example.vokabel.translation.Translation;
 import com.example.vokabel.answer.AnswerDto;
+import com.example.vokabel.answer.AnswerResultDto;
+import com.example.vokabel.translation.Translation;
+import com.example.vokabel.translation.TranslationDto;
 import com.example.vokabel.translation.TranslationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class VocabServiceImpl implements VocabService {
@@ -22,26 +23,51 @@ public class VocabServiceImpl implements VocabService {
     @Autowired
     private TranslationService translationService;
 
+    @Value("${rounds}")
+    String roundAmount;
+
+    @Value("${perRound}")
+    String perRound;
+
+    @Value("${translations}")
+    String translations;
+
 
     @Override
-    public List<QuestionDto> getQuestionsForGame(int rounds, String category) {
+    public List<Question> getQuestionsForGame(String category) {
 
-        //todo random
-        var vocabs = vocabRepo.findAllByCategoryEquals(category);
-        var translations = translationService
-                .getTranslationsForGame(1, Collections.singletonList(1));
 
-        var questions = new ArrayList<QuestionDto>();
+        var amount = Integer.parseInt(roundAmount) * Integer.parseInt(perRound);
+        //List<Vocab> vocabs = vocabRepo.findAllByCategoryEqualsOOrder(category);
+        List<Vocab> vocabs = vocabRepo.findRandomByCategory(category, amount);
 
-        for(int i = 0; i< rounds*5; i++){
-            var question = new QuestionDto();
+        var translationsPerQuestions = Integer.parseInt(translations);
+        var translationAmount = amount * (translationsPerQuestions - 1);
+        var vocabIds = vocabs.stream().map(x -> x.getId()).collect(Collectors.toList());
+        List<Translation> translations = translationService
+                .getTranslationsForGame(translationAmount, vocabIds);
+
+        var questions = new ArrayList<Question>();
+
+        var random = new Random();
+        var translationCount = 0;
+        for (int i = 0; i < amount; i++) {
+            var question = new Question();
             var vocab = vocabs.get(i);
             question.setVocabId(vocab.getId());
             List<Integer> translationIds = new ArrayList<>();
-            //todo random
-            translationIds.add(vocab.getTranslations().get(i).getId());
-            //todo more
-            translationIds.add(translations.get(i).getId());
+
+            var index = random.nextInt(vocab.getTranslations().size());
+            translationIds.add(vocab.getTranslations().get(index).getId());
+
+            for (int n = 0; n < translationsPerQuestions - 1; n++) {
+                translationIds.add(translations.get(translationCount).getId());
+                if (translationCount < translations.size()) {
+                    translationCount++;
+                }
+            }
+            Collections.shuffle(translationIds);
+            question.setTranslationIds(translationIds);
             questions.add(question);
         }
 
@@ -49,13 +75,9 @@ public class VocabServiceImpl implements VocabService {
         return questions;
     }
 
-    @Override
-    public boolean checkAnswer(AnswerDto dto) {
-        return false;
-    }
 
     @Override
-    public List<Translation> getVocabTranslation(int vocabId){
+    public List<Translation> getVocabTranslation(int vocabId) {
         return vocabRepo.findById(vocabId).get().getTranslations();
     }
 
@@ -78,7 +100,7 @@ public class VocabServiceImpl implements VocabService {
         List<String> lines = new ArrayList<>();
         lines.addAll(Arrays.asList(content.split(System.lineSeparator())));
         lines.remove(lines.get(0));
-        for (String line : lines){
+        for (String line : lines) {
             var vocab = new Vocab();
             vocab.setCategory(category);
             List<String> words = new ArrayList<>();
@@ -90,18 +112,18 @@ public class VocabServiceImpl implements VocabService {
 
             List<Translation> translations = new ArrayList<>();
 
-            for (String word: words){
-                if (word.length()>0) {
+            for (String word : words) {
+                if (word.length() > 0) {
                     var temp = new Translation();
                     temp.setName(editWord(word));
+                    temp.setVocab(vocab);
                     translations.add(temp);
                 }
             }
             vocab.setTranslations(translations);
-           result.add(vocab);
+            result.add(vocab);
         }
         vocabRepo.saveAll(result);
-        System.out.println(result);
     }
 
     private String editWord(String word) {
@@ -109,5 +131,38 @@ public class VocabServiceImpl implements VocabService {
         word = word.replaceAll(" ", "");
         word = word.replaceAll(":", "");
         return word;
+    }
+
+    @Override
+    public Vocab findVocabById(int id) {
+        return vocabRepo.findById(id).get();
+    }
+
+    @Override
+    public AnswerResultDto checkAnswer(AnswerDto answerDto) {
+
+        var vocab = findVocabById(answerDto.getVocabId());
+        var translations = vocab.getTranslations();
+
+        Optional<Translation> opt = translations.stream()
+                .filter(x -> x.getId() == answerDto.getTranslationId()).findFirst();
+        AnswerResultDto result = new AnswerResultDto();
+        result.setCorrect(opt.isPresent());
+        List<TranslationDto> transDtos = new ArrayList<>();
+        for (Translation translation : translations) {
+            TranslationDto temp = new TranslationDto();
+            temp.setId(translation.getId());
+            temp.setName(translation.getName());
+            transDtos.add(temp);
+        }
+        result.setTranslations(transDtos);
+        result.setVocab(vocab.getName());
+        result.setVocabId(vocab.getId());
+        return result;
+    }
+
+    @Override
+    public List<String> getAllCategories() {
+        return vocabRepo.findAllCategories();
     }
 }

@@ -18,8 +18,8 @@ public interface GameService {
  * @param user1 Spieler 1 wird übergegben
  * @param user2 Spieler 2 wird übergeben
  */
-    Game createGame(int user1, int user2);
-    // toDo bitte erklären
+
+    Game createGame(Integer user1, Integer user2, String category);
 
     /**
      * Sucht alle spiele die ein User aktuell speilt

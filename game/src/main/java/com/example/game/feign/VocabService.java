@@ -1,17 +1,23 @@
 package com.example.game.feign;
 
-import com.example.game.answer.Answer;
+import com.example.game.answer.AnswerDto;
 import com.example.game.answer.AnswerResultDto;
+import com.example.game.round.Question;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
 
-public class VocabService {
 
-    public List<Question> getQuestionsForGame(int round){
-        return null;
-    }
+@FeignClient(value = "VocabService", url = "${vocab.url}/vocab")
+public interface VocabService {
 
-    public AnswerResultDto checkAnswer(Answer answer){
-        return null;
-    }
+    @RequestMapping(method = RequestMethod.GET, value = "/createGame/{category}")
+    List<Question> getQuestionsForGame(@PathVariable String category);
+
+    @RequestMapping(method = RequestMethod.POST, value = "/checkAnswer")
+    AnswerResultDto checkAnswer(@RequestBody AnswerDto answerDto);
 }

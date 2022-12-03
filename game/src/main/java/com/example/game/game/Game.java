@@ -6,18 +6,35 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.*;
 import java.util.List;
 
 @Getter
 @Setter
 @NoArgsConstructor
+@Entity
 public class Game {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private List<Integer> users;
-    private Score score;
-    private int roundAmount;
+
+    @ElementCollection
+    private List<Integer> userIds;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "game")
     private List<Round> rounds;
 
-    //Kategorie festlegen
+    @Column
+    private String category;
+
+    @Column
+    private Integer nextUser;
+
+    @Column
+    private boolean done;
+
+    @Column
+    private Integer winnerId;
+
 }

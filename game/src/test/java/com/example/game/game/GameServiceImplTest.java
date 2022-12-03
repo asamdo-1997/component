@@ -14,7 +14,7 @@ class GameServiceImplTest {
     @Test
     void createGame() {
 
-       Game result =  gameService.createGame(1,1);
+       Game result =  gameService.createGame(1,1,"test");
 
         Assert.assertNotNull(result);
     }

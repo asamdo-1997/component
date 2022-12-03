@@ -14,7 +14,7 @@ class VocabServiceImplTest {
 
     @Test
     void getQuestionsForGame() {
-       var result = vocabService.getQuestionsForGame(3, "test");
+       var result = vocabService.getQuestionsForGame("test");
 
         Assert.assertNotNull(result);
     }

@@ -8,6 +8,8 @@ import java.util.List;
 @Data
 public class AnswerResultDto {
 
-    boolean right;
+    boolean correct;
+    int vocabId;
+    String vocab;
     List<TranslationDto> translations;
 }

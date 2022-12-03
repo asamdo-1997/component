@@ -1,5 +1,8 @@
 package com.example.vokabel.translation;
 
+import com.example.vokabel.answer.AnswerDto;
+import com.example.vokabel.answer.AnswerResultDto;
+
 import java.util.List;
 
 /**
@@ -23,4 +26,5 @@ public interface TranslationService {
      * @param notToUse
      */
     List<Translation> getTranslationsForGame(int amount, List<Integer> notToUse);
+
 }

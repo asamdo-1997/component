@@ -1,29 +1,32 @@
-package com.example.game.score;
+package com.example.game.round;
 
-
+import com.example.game.answer.Answer;
 import com.example.game.round.Round;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
+import org.hibernate.mapping.ToOne;
 
 import javax.persistence.*;
+import java.util.List;
+
 
 @Data
 @Entity
-public class Score {
+public class Question {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    private int userId;
 
-    @Column
-    private int playerId;
-
-    @Column
-    private int count;
+    @ElementCollection
+    private List<Integer> translationIds;
 
     @ManyToOne
     @JoinColumn(name = "roundId")
     @JsonBackReference
     private Round round;
 
+    @OneToMany
+    private List<Answer> answer;
 }
