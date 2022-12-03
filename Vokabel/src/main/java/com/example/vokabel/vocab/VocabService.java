@@ -55,4 +55,6 @@ public interface VocabService {
     AnswerResultDto checkAnswer(AnswerDto answerDto);
 
     List<String> getAllCategories();
+
+    void mapRound(RoundDto roundDto);
 }

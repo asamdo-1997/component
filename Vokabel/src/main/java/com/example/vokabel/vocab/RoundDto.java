@@ -1,4 +1,5 @@
-package com.example.game.round;
+package com.example.vokabel.vocab;
+
 
 import lombok.Data;
 

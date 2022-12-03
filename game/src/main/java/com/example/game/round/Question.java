@@ -17,7 +17,8 @@ public class Question {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private int userId;
+
+    private int vocabId;
 
     @ElementCollection
     private List<Integer> translationIds;

@@ -1,9 +1,7 @@
-package com.example.game.round;
+package com.example.vokabel.vocab;
 
 import lombok.Data;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import java.util.HashMap;
 import java.util.Map;
 
 @Data

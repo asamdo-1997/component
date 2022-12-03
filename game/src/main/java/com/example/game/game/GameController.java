@@ -4,6 +4,7 @@ import com.example.game.answer.AnswerDto;
 import com.example.game.answer.AnswerResultDto;
 import com.example.game.answer.AnswerService;
 import com.example.game.round.Round;
+import com.example.game.round.RoundDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -41,5 +42,10 @@ public class GameController {
         return answerService.checkAnswer(input);
     }
     //return transalationId
+
+    @GetMapping("currentRound/{gameId)")
+    public RoundDto getCurrentRound(@PathVariable int gameId){
+        return gameService.getCurrentRound(gameId);
+    }
 
 }

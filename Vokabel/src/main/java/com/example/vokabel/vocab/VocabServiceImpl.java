@@ -4,6 +4,7 @@ import com.example.vokabel.answer.AnswerDto;
 import com.example.vokabel.answer.AnswerResultDto;
 import com.example.vokabel.translation.Translation;
 import com.example.vokabel.translation.TranslationDto;
+import com.example.vokabel.translation.TranslationRepo;
 import com.example.vokabel.translation.TranslationService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,9 @@ public class VocabServiceImpl implements VocabService {
 
     @Autowired
     private TranslationService translationService;
+
+    @Autowired
+    private TranslationRepo translationRepo;
 
     @Value("${rounds}")
     String roundAmount;
@@ -200,5 +204,18 @@ public class VocabServiceImpl implements VocabService {
     @Override
     public List<String> getAllCategories() {
         return vocabRepo.findAllCategories();
+    }
+
+    @Override
+    public void mapRound(RoundDto roundDto){
+        for (var question : roundDto.getQuestions()){
+            var vocab = vocabRepo.findById(question.getVocabId()).get();
+            question.setName(vocab.getName());
+
+            for (var translation : question.getAnswers().entrySet()){
+                var tempTranslation = translationRepo.findById(translation.getKey()).get();
+                translation.setValue(tempTranslation.getName());
+            }
+        }
     }
 }

@@ -43,4 +43,10 @@ public class VocabController {
     public List<String> getAllCategories() {
         return vocabService.getAllCategories();
     }
+
+    @PostMapping("/mapRound")
+    public RoundDto mapRound(@RequestBody RoundDto dto){
+        vocabService.mapRound(dto);
+        return dto;
+    }
 }

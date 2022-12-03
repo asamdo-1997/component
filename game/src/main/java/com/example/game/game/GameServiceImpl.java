@@ -2,14 +2,15 @@ package com.example.game.game;
 
 import com.example.game.round.Question;
 import com.example.game.feign.VocabService;
+import com.example.game.round.QuestionDto;
 import com.example.game.round.Round;
-import com.example.game.score.Score;
+import com.example.game.round.RoundDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -75,6 +76,30 @@ public class GameServiceImpl implements GameService {
     @Override
     public List<Game> getUserGames(int user) {
         return gameRepo.findAllByUser1EqualsOrUser2Equals(user,user);
+    }
+
+    @Override
+    public RoundDto getCurrentRound(int gameId){
+        var game = gameRepo.findById(gameId).get();
+        var round = game.getRounds().stream().filter(x -> !x.isDone()).findFirst();
+        if (round.isPresent()){
+            var roundDto = new RoundDto();
+            roundDto.setQuestions(new ArrayList<>());
+            for (var question : round.get().getQuestions()){
+                var questionDto = new QuestionDto();
+                questionDto.setVocabId(question.getVocabId());
+                questionDto.setAnswers(new HashMap<>());
+                for (var id : question.getTranslationIds()){
+                    questionDto.getAnswers().put(id, "");
+                }
+                roundDto.getQuestions().add(questionDto);
+            }
+            vocabService.mapQuestion(roundDto);
+            return roundDto;
+        }
+        else {
+            return null;
+        }
     }
 
 }

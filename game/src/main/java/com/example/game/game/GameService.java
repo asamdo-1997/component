@@ -1,5 +1,7 @@
 package com.example.game.game;
 
+import com.example.game.round.RoundDto;
+
 import java.util.List;
 /**
 *
@@ -28,4 +30,5 @@ public interface GameService {
     List<Game> getUserGames(int user);
 
 
+    RoundDto getCurrentRound(int gameId);
 }
