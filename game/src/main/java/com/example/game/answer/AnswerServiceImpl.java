@@ -28,6 +28,16 @@ public class AnswerServiceImpl implements AnswerService {
         answer.setQuestion(question);
         answer.setTranslationId(input.getTranslationId());
         answer.setCorrect(result.correct);
+        if (answer.isCorrect()){
+
+            var game = question.getRound().getGame();
+            if (game.getUser1() == input.getUserId()){
+                game.setUser1(game.getUser1() + 1);
+            }
+            else {
+                game.setUser2(game.getUser2() + 1);
+            }
+        }
         //Filter which translation was given as answer option
         var correctTranslation = result.translations.stream()
                 .filter(x -> question.getTranslationIds().contains(x.getId())).findFirst().get();

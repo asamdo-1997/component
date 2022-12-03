@@ -33,7 +33,8 @@ public class GameServiceImpl implements GameService {
     public Game createGame(Integer user1, Integer user2, String category) {
         var rounds = Integer.parseInt(roundAmount);
         Game game = new Game();
-        game.setUserIds(Arrays.asList(user1, user2));
+        game.setUser1(user1);
+        game.setUser2(user2);
         game.setCategory(category);
         game.setNextUser(user1);
 
@@ -45,7 +46,7 @@ public class GameServiceImpl implements GameService {
             round.setGame(game);
 
 
-            var score1 = new Score();
+           /* var score1 = new Score();
             score1.setPlayerId(user1);
             score1.setRound(round);
 
@@ -53,7 +54,7 @@ public class GameServiceImpl implements GameService {
             score2.setPlayerId(user2);
             score2.setRound(round);
 
-            round.setScores(Arrays.asList(score1,score2));
+            round.setScores(Arrays.asList(score1,score2));*/
 
             List<Question> roundQuestions = new ArrayList<>();
             var perRoundAmount = Integer.parseInt(perRound);
@@ -73,7 +74,7 @@ public class GameServiceImpl implements GameService {
 
     @Override
     public List<Game> getUserGames(int user) {
-        return gameRepo.findAllByUserIdsContains(user);
+        return gameRepo.findAllByUser1EqualsOrUser2Equals(user,user);
     }
 
 }

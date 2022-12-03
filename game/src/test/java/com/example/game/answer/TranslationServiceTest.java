@@ -22,7 +22,7 @@ class TranslationServiceTest {
         answer.setRound(new Round());
         answer.setUserId(1);*/
 
-        var result = answerService.answer(answer);
+       // var result = answerService.answer(answer);
 
         Assert.assertNotNull(answer);
     }

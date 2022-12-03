@@ -1,6 +1,7 @@
 package com.example.game.score;
 
 
+import com.example.game.game.Game;
 import com.example.game.round.Round;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
@@ -21,9 +22,9 @@ public class Score {
     @Column
     private int count;
 
-    @ManyToOne
-    @JoinColumn(name = "roundId")
+ /*   @ManyToOne
+    @JoinColumn(name = "gameId")
     @JsonBackReference
-    private Round round;
+    private Game game;*/
 
 }

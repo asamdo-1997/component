@@ -26,8 +26,8 @@ public class Round {
    /* @OneToMany(cascade = CascadeType.ALL, mappedBy = "round")
     private List<Answer> answers;*/
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "round")
-    private List<Score> scores;
+   /* @OneToMany(cascade = CascadeType.ALL, mappedBy = "round")
+    private List<Score> scores;*/
 
     @Column
     private boolean done;

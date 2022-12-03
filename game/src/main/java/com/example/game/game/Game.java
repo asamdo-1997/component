@@ -19,11 +19,14 @@ public class Game {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @ElementCollection
-    private List<Integer> userIds;
+   /* @ElementCollection
+    private List<Integer> userIds;*/
+    private int user1;
+    private int user2;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "game")
     private List<Round> rounds;
+
 
     @Column
     private String category;
@@ -36,5 +39,8 @@ public class Game {
 
     @Column
     private Integer winnerId;
+
+    private int scorePlayer1;
+    private int scorePlayer2;
 
 }
