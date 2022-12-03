@@ -5,6 +5,7 @@ import com.example.vokabel.answer.AnswerResultDto;
 import com.example.vokabel.translation.Translation;
 import com.example.vokabel.translation.TranslationDto;
 import com.example.vokabel.translation.TranslationService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -100,9 +101,44 @@ public class VocabServiceImpl implements VocabService {
         List<String> lines = new ArrayList<>();
         lines.addAll(Arrays.asList(content.split(System.lineSeparator())));
         lines.remove(lines.get(0));
+
+
         for (String line : lines) {
-            var vocab = new Vocab();
-            vocab.setCategory(category);
+            //StringUtils.substringBetween(line, ":");
+            var parts = line.split(":");
+
+            var vocabs = StringUtils.substringsBetween(parts[0], "{", "}");
+            var translations = StringUtils.substringsBetween(parts[1], "{", "}");
+
+
+            for (var vocabEntry : vocabs) {
+
+                if (vocabEntry.length()>0) {
+                    var vocab = new Vocab();
+                    vocab.setName(vocabEntry);
+
+                    var tempTranslations = new ArrayList<Translation>();
+                    for (var translationEntry : translations) {
+                        if (!translationEntry.isEmpty()) {
+                            var translation = new Translation();
+                            translation.setVocab(vocab);
+                            translation.setName(translationEntry);
+                            tempTranslations.add(translation);
+                        }
+                    }
+                    if (translations.length > 0) {
+                        vocab.setTranslations(tempTranslations);
+                        vocab.setCategory(category);
+                        result.add(vocab);
+                        System.out.println(vocab.getName());
+                        vocabRepo.save(vocab);
+                    }
+                }
+            }
+        }
+        //vocabRepo.saveAll(result);
+
+          /*  vocab.setCategory(category);
             List<String> words = new ArrayList<>();
             words.addAll(Arrays.asList(line.split("\\{")));
 
@@ -110,7 +146,7 @@ public class VocabServiceImpl implements VocabService {
             vocab.setName(editWord(words.get(0)));
             words.remove(words.get(0));
 
-            List<Translation> translations = new ArrayList<>();
+            //List<Translation> translations = new ArrayList<>();
 
             for (String word : words) {
                 if (word.length() > 0) {
@@ -123,7 +159,7 @@ public class VocabServiceImpl implements VocabService {
             vocab.setTranslations(translations);
             result.add(vocab);
         }
-        vocabRepo.saveAll(result);
+        vocabRepo.saveAll(result);*/
     }
 
     private String editWord(String word) {
