@@ -46,7 +46,7 @@ public class VocabController {
 
     @PostMapping("/mapRound")
     public RoundDto mapRound(@RequestBody RoundDto dto){
-        vocabService.mapRound(dto);
-        return dto;
+        return vocabService.mapRound(dto);
+
     }
 }

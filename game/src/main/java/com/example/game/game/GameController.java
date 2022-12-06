@@ -43,7 +43,7 @@ public class GameController {
     }
     //return transalationId
 
-    @GetMapping("currentRound/{gameId)")
+    @GetMapping("currentRound/{gameId}")
     public RoundDto getCurrentRound(@PathVariable int gameId){
         return gameService.getCurrentRound(gameId);
     }

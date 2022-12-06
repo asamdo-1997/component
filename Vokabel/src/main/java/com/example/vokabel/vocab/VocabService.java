@@ -56,5 +56,5 @@ public interface VocabService {
 
     List<String> getAllCategories();
 
-    void mapRound(RoundDto roundDto);
+    RoundDto mapRound(RoundDto roundDto);
 }
