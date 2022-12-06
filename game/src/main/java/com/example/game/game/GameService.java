@@ -3,6 +3,8 @@ package com.example.game.game;
 import com.example.game.round.RoundDto;
 
 import java.util.List;
+import java.util.Optional;
+
 /**
 *
 * Das Interface für das Spiel.
@@ -28,6 +30,8 @@ public interface GameService {
      * @param user Spieler nach dem gesucht wird
      */
     List<Game> getUserGames(int user);
+
+    Optional<Game> getGameById(int gameId);
 
 
     RoundDto getCurrentRound(int gameId);

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class GameServiceImpl implements GameService {
@@ -76,6 +77,11 @@ public class GameServiceImpl implements GameService {
     @Override
     public List<Game> getUserGames(int user) {
         return gameRepo.findAllByUser1EqualsOrUser2Equals(user,user);
+    }
+
+    @Override
+    public Optional<Game> getGameById(int userId) {
+        return gameRepo.findById(userId);
     }
 
     @Override
