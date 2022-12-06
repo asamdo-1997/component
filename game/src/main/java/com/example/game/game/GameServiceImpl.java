@@ -100,8 +100,8 @@ public class GameServiceImpl implements GameService {
                 }
                 roundDto.getQuestions().add(questionDto);
             }
-            vocabService.mapQuestion(roundDto);
-            return roundDto;
+            return vocabService.mapQuestion(roundDto);
+            //return roundDto;
         }
         else {
             return null;

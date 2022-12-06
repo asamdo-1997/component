@@ -140,30 +140,6 @@ public class VocabServiceImpl implements VocabService {
                 }
             }
         }
-        //vocabRepo.saveAll(result);
-
-          /*  vocab.setCategory(category);
-            List<String> words = new ArrayList<>();
-            words.addAll(Arrays.asList(line.split("\\{")));
-
-            words.remove(words.get(0));
-            vocab.setName(editWord(words.get(0)));
-            words.remove(words.get(0));
-
-            //List<Translation> translations = new ArrayList<>();
-
-            for (String word : words) {
-                if (word.length() > 0) {
-                    var temp = new Translation();
-                    temp.setName(editWord(word));
-                    temp.setVocab(vocab);
-                    translations.add(temp);
-                }
-            }
-            vocab.setTranslations(translations);
-            result.add(vocab);
-        }
-        vocabRepo.saveAll(result);*/
     }
 
     private String editWord(String word) {
@@ -207,7 +183,7 @@ public class VocabServiceImpl implements VocabService {
     }
 
     @Override
-    public void mapRound(RoundDto roundDto){
+    public RoundDto mapRound(RoundDto roundDto){
         for (var question : roundDto.getQuestions()){
             var vocab = vocabRepo.findById(question.getVocabId()).get();
             question.setName(vocab.getName());
@@ -217,5 +193,6 @@ public class VocabServiceImpl implements VocabService {
                 translation.setValue(tempTranslation.getName());
             }
         }
+        return roundDto;
     }
 }

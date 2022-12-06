@@ -23,5 +23,5 @@ public interface VocabService {
     AnswerResultDto checkAnswer(@RequestBody AnswerDto answerDto);
 
     @RequestMapping(method = RequestMethod.POST, value = "/mapRound")
-    AnswerResultDto mapQuestion(@RequestBody RoundDto roundDto);
+    RoundDto mapQuestion(@RequestBody RoundDto roundDto);
 }
