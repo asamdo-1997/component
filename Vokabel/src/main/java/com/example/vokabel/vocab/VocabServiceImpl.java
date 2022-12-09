@@ -188,9 +188,9 @@ public class VocabServiceImpl implements VocabService {
             var vocab = vocabRepo.findById(question.getVocabId()).get();
             question.setName(vocab.getName());
 
-            for (var translation : question.getAnswers().entrySet()){
-                var tempTranslation = translationRepo.findById(translation.getKey()).get();
-                translation.setValue(tempTranslation.getName());
+            for (var translation : question.getAnswers()){
+                var tempTranslation = translationRepo.findById(translation.getTranslationId()).get();
+                translation.setAnswerValue(tempTranslation.getName());
             }
         }
         return roundDto;

@@ -1,5 +1,6 @@
 package com.example.game.game;
 
+import com.example.game.answer.AnswerDto;
 import com.example.game.round.Question;
 import com.example.game.feign.VocabService;
 import com.example.game.round.QuestionDto;
@@ -94,9 +95,11 @@ public class GameServiceImpl implements GameService {
             for (var question : round.get().getQuestions()){
                 var questionDto = new QuestionDto();
                 questionDto.setVocabId(question.getVocabId());
-                questionDto.setAnswers(new HashMap<>());
+                questionDto.setAnswers(new ArrayList<>());
                 for (var id : question.getTranslationIds()){
-                    questionDto.getAnswers().put(id, "");
+                    var answer = new AnswerDto();
+                    answer.setTranslationId(id);
+                    questionDto.getAnswers().add(answer);
                 }
                 roundDto.getQuestions().add(questionDto);
             }
