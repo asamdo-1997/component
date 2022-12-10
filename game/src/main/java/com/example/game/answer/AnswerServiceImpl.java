@@ -57,8 +57,8 @@ public class AnswerServiceImpl implements AnswerService {
         }
      //   if (question.isDone() && round.getQuestions().stream().filter(x -> !x.isDone()).findFirst().isEmpty()) {
 
-       // if (question.isDone() && round.getQuestions().stream().filter(x -> !x.isDone()).findFirst().isEmpty()) {
-        if (round.getQuestions().indexOf(question) == round.getQuestions().size() - 1){
+        if (question.isDone() && round.getQuestions().stream().filter(x -> !x.isDone()).findFirst().isEmpty()) {
+       // if (round.getQuestions().indexOf(question) == round.getQuestions().size() - 1){
             round.setDone(true);
         }
         if (round.getQuestions().indexOf(question) == round.getQuestions().size() - 1){
