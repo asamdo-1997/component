@@ -31,15 +31,6 @@ public class AnswerServiceImpl implements AnswerService {
         answer.setQuestion(question);
         answer.setTranslationId(input.getTranslationId());
         answer.setCorrect(result.correct);
-        if (answer.isCorrect()) {
-
-            var game = question.getRound().getGame();
-            if (game.getUser1() == input.getUserId()) {
-                game.setUser1(game.getUser1() + 1);
-            } else {
-                game.setUser2(game.getUser2() + 1);
-            }
-        }
         //Filter which translation was given as answer option
         var correctTranslation = result.translations.stream()
                 .filter(x -> question.getTranslationIds().contains(x.getId())).findFirst().get();
@@ -55,7 +46,19 @@ public class AnswerServiceImpl implements AnswerService {
         //check if round is finished
         var round = question.getRound();
         var game = round.getGame();
-        if (question.isDone() && round.getQuestions().stream().filter(x -> !x.isDone()).findFirst().isEmpty()) {
+        if (answer.isCorrect()) {
+
+           //var game = question.getRound().getGame();
+            if (game.getUser1() == input.getUserId()) {
+                game.setScorePlayer1(game.getScorePlayer1() + 1);
+            } else {
+                game.setScorePlayer2(game.getScorePlayer2() + 1);
+            }
+        }
+     //   if (question.isDone() && round.getQuestions().stream().filter(x -> !x.isDone()).findFirst().isEmpty()) {
+
+       // if (question.isDone() && round.getQuestions().stream().filter(x -> !x.isDone()).findFirst().isEmpty()) {
+        if (round.getQuestions().indexOf(question) == round.getQuestions().size() - 1){
             round.setDone(true);
         }
         if (round.getQuestions().indexOf(question) == round.getQuestions().size() - 1){
