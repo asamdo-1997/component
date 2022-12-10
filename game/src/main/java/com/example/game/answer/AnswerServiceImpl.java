@@ -55,9 +55,11 @@ public class AnswerServiceImpl implements AnswerService {
         //check if round is finished
         var round = question.getRound();
         var game = round.getGame();
-       // if (question.isDone() && round.getQuestions().stream().filter(x -> !x.isDone()).findFirst().isEmpty()) {
-        if (round.getQuestions().indexOf(question) == round.getQuestions().size() - 1){
+        if (question.isDone() && round.getQuestions().stream().filter(x -> !x.isDone()).findFirst().isEmpty()) {
             round.setDone(true);
+        }
+        if (round.getQuestions().indexOf(question) == round.getQuestions().size() - 1){
+
             if (game.getNextUser() == game.getUser1()) {
                 game.setNextUser(game.getUser2());
             } else {
