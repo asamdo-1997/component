@@ -95,6 +95,7 @@ public class GameServiceImpl implements GameService {
                 var questionDto = new QuestionDto();
                 questionDto.setVocabId(question.getVocabId());
                 questionDto.setAnswers(new ArrayList<>());
+                questionDto.setQuestionId(question.getId());
                 for (var id : question.getTranslationIds()) {
                     var answer = new AnswerDto();
                     answer.setTranslationId(id);

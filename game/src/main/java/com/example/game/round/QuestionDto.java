@@ -11,6 +11,7 @@ import java.util.Map;
 @Data
 public class QuestionDto {
 
+    private int questionId;
     private int vocabId;
     private String name;
     private List<AnswerDto> answers;
