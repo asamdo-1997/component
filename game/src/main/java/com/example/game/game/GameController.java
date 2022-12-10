@@ -18,12 +18,14 @@ import java.util.Optional;
 @Log4j2
 public class GameController {
 
-    @Autowired
     GameService gameService;
-
-    @Autowired
     AnswerService answerService;
 
+    @Autowired
+    public GameController(GameService gameService, AnswerService answerService) {
+        this.gameService = gameService;
+        this.answerService = answerService;
+    }
 
     @GetMapping("/createGame/{user1}/{user2}/{category}")
     public int createGame(@PathVariable int user1, @PathVariable int user2, @PathVariable String category){
@@ -36,7 +38,7 @@ public class GameController {
     }
 
     @GetMapping("/getgamebyid/{userId}")
-    public Optional<Game> getGameById(@PathVariable int userId){
+    public Game getGameById(@PathVariable int userId){
         return gameService.getGameById(userId);
     }
 

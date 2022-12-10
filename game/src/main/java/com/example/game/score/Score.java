@@ -22,9 +22,5 @@ public class Score {
     @Column
     private int count;
 
- /*   @ManyToOne
-    @JoinColumn(name = "gameId")
-    @JsonBackReference
-    private Game game;*/
 
 }

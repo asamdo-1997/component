@@ -1,32 +1,31 @@
 package com.example.game.answer;
 
 import com.example.game.feign.VocabService;
-import com.example.game.game.GameRepo;
-import com.example.game.question.QuestionService;
+import com.example.game.game.GameDao;
+import com.example.game.question.QuestionDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class AnswerServiceImpl implements AnswerService {
 
-
-    @Autowired
     VocabService vocabService;
+    QuestionDao questionDao;
+    AnswerDao answerDao;
+    GameDao gameDao;
 
     @Autowired
-    QuestionService questionService;
-
-    @Autowired
-    AnswerRepo answerRepo;
-
-    @Autowired
-    GameRepo gameRepo;
-
+    public AnswerServiceImpl(VocabService vocabService, QuestionDao questionDao, AnswerDao answerDao, GameDao gameDao) {
+        this.vocabService = vocabService;
+        this.questionDao = questionDao;
+        this.answerDao = answerDao;
+        this.gameDao = gameDao;
+    }
 
     @Override
     public AnswerResultDto checkAnswer(AnswerDto input) {
         var result = vocabService.checkAnswer(input);
-        var question = questionService.findById(input.getQuestionId());
+        var question = questionDao.findById(input.getQuestionId());
         Answer answer = new Answer();
         answer.setUserId(input.getUserId());
         answer.setQuestion(question);
@@ -46,7 +45,7 @@ public class AnswerServiceImpl implements AnswerService {
                 .filter(x -> question.getTranslationIds().contains(x.getId())).findFirst().get();
 
         answer.setCorrectTranslationId(correctTranslation.getId());
-        answerRepo.save(answer);
+        answerDao.save(answer);
         result.setCorrectAnswer(correctTranslation);
 
         //check if question is done
@@ -68,7 +67,7 @@ public class AnswerServiceImpl implements AnswerService {
         if (round.isDone() && game.getRounds().stream().filter(x -> !x.isDone()).findFirst().isEmpty()) {
             game.setDone(true);
         }
-        gameRepo.save(game);
+        gameDao.save(game);
         return result;
     }
 }

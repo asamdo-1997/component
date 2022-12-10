@@ -5,7 +5,7 @@ import com.example.vokabel.answer.AnswerResultDto;
 import com.example.vokabel.translation.Translation;
 import com.example.vokabel.translation.TranslationDto;
 import com.example.vokabel.translation.TranslationRepo;
-import com.example.vokabel.translation.TranslationService;
+import com.example.vokabel.translation.TranslationDao;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,13 +19,8 @@ import java.util.stream.Collectors;
 @Service
 public class VocabServiceImpl implements VocabService {
 
-    @Autowired
-    private VocabRepo vocabRepo;
-
-    @Autowired
-    private TranslationService translationService;
-
-    @Autowired
+    private VocabDao vocabDao;
+    private TranslationDao translationDao;
     private TranslationRepo translationRepo;
 
     @Value("${rounds}")
@@ -37,6 +32,12 @@ public class VocabServiceImpl implements VocabService {
     @Value("${translations}")
     String translations;
 
+    @Autowired
+    public VocabServiceImpl(VocabDao vocabDao, TranslationDao translationDao, TranslationRepo translationRepo) {
+        this.vocabDao = vocabDao;
+        this.translationDao = translationDao;
+        this.translationRepo = translationRepo;
+    }
 
     @Override
     public List<Question> getQuestionsForGame(String category) {
@@ -44,12 +45,12 @@ public class VocabServiceImpl implements VocabService {
 
         var amount = Integer.parseInt(roundAmount) * Integer.parseInt(perRound);
         //List<Vocab> vocabs = vocabRepo.findAllByCategoryEqualsOOrder(category);
-        List<Vocab> vocabs = vocabRepo.findRandomByCategory(category, amount);
+        List<Vocab> vocabs = vocabDao.findRandomByCategory(category, amount);
 
         var translationsPerQuestions = Integer.parseInt(translations);
         var translationAmount = amount * (translationsPerQuestions - 1);
         var vocabIds = vocabs.stream().map(x -> x.getId()).collect(Collectors.toList());
-        List<Translation> translations = translationService
+        List<Translation> translations = translationDao
                 .getTranslationsForGame(translationAmount, vocabIds);
 
         var questions = new ArrayList<Question>();
@@ -83,7 +84,7 @@ public class VocabServiceImpl implements VocabService {
 
     @Override
     public List<Translation> getVocabTranslation(int vocabId) {
-        return vocabRepo.findById(vocabId).get().getTranslations();
+        return vocabDao.findById(vocabId).getTranslations();
     }
 
     @Override
@@ -135,7 +136,7 @@ public class VocabServiceImpl implements VocabService {
                         vocab.setCategory(category);
                         result.add(vocab);
                         System.out.println(vocab.getName());
-                        vocabRepo.save(vocab);
+                        vocabDao.save(vocab);
                     }
                 }
             }
@@ -151,7 +152,7 @@ public class VocabServiceImpl implements VocabService {
 
     @Override
     public Vocab findVocabById(int id) {
-        return vocabRepo.findById(id).get();
+        return vocabDao.findById(id);
     }
 
     @Override
@@ -179,13 +180,13 @@ public class VocabServiceImpl implements VocabService {
 
     @Override
     public List<String> getAllCategories() {
-        return vocabRepo.findAllCategories();
+        return vocabDao.findAllCategories();
     }
 
     @Override
     public RoundDto mapRound(RoundDto roundDto){
         for (var question : roundDto.getQuestions()){
-            var vocab = vocabRepo.findById(question.getVocabId()).get();
+            var vocab = vocabDao.findById(question.getVocabId());
             question.setName(vocab.getName());
 
             for (var translation : question.getAnswers()){

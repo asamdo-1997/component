@@ -9,32 +9,36 @@ import java.util.Optional;
 @Service
 public class UserServiceImpl implements UserService {
 
+    UserDao userDao;
+
     @Autowired
-    UserRepository userRepository;
+    public UserServiceImpl(UserDao userDao) {
+        this.userDao = userDao;
+    }
 
     @Override
     public void saveUser(User user) {
-        userRepository.save(user);
+        userDao.saveUser(user);
     }
 
     @Override
     public List<User> getalluser() {
-        return userRepository.findAll();
+        return userDao.findAll();
     }
 
     @Override
     public Optional<User> getByNutzername(String nutzername) {
-        return userRepository.findByNutzername(nutzername);
+        return userDao.findByNutzername(nutzername);
     }
 
     @Override
     public Optional<User> getById(int id) {
-        return userRepository.findById(id);
+        return userDao.findById(id);
     }
 
     @Override
-    public void deleteUser(int id){
-        userRepository.deleteById(id);
+    public void deleteUser(int userId) {
+        userDao.deleteUser(userId);
     }
 
 

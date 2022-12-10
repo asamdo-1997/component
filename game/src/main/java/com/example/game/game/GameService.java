@@ -31,7 +31,7 @@ public interface GameService {
      */
     List<Game> getUserGames(int user);
 
-    Optional<Game> getGameById(int gameId);
+    Game getGameById(int gameId);
 
 
     RoundDto getCurrentRound(int gameId);

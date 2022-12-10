@@ -1,8 +1,8 @@
 package com.example.game.game;
 
 import com.example.game.answer.AnswerDto;
-import com.example.game.round.Question;
 import com.example.game.feign.VocabService;
+import com.example.game.round.Question;
 import com.example.game.round.QuestionDto;
 import com.example.game.round.Round;
 import com.example.game.round.RoundDto;
@@ -11,26 +11,25 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class GameServiceImpl implements GameService {
 
-    @Autowired
     VocabService vocabService;
-
-    @Autowired
-    GameRepo gameRepo;
+    GameDao gameDao;
 
     @Value("${rounds}")
     String roundAmount;
 
-
     @Value("${perRound}")
     String perRound;
 
+    @Autowired
+    public GameServiceImpl(VocabService vocabService, GameDao gameDao) {
+        this.vocabService = vocabService;
+        this.gameDao = gameDao;
+    }
 
     @Override
     public Game createGame(Integer user1, Integer user2, String category) {
@@ -71,32 +70,32 @@ public class GameServiceImpl implements GameService {
             game.getRounds().add(round);
         }
 
-        gameRepo.save(game);
+        gameDao.save(game);
         return game;
     }
 
     @Override
     public List<Game> getUserGames(int user) {
-        return gameRepo.findAllByUser1EqualsOrUser2Equals(user,user);
+        return gameDao.findAllByUser(user);
     }
 
     @Override
-    public Optional<Game> getGameById(int userId) {
-        return gameRepo.findById(userId);
+    public Game getGameById(int userId) {
+        return gameDao.findById(userId);
     }
 
     @Override
-    public RoundDto getCurrentRound(int gameId){
-        var game = gameRepo.findById(gameId).get();
+    public RoundDto getCurrentRound(int gameId) {
+        var game = gameDao.findById(gameId);
         var round = game.getRounds().stream().filter(x -> !x.isDone()).findFirst();
-        if (round.isPresent()){
+        if (round.isPresent()) {
             var roundDto = new RoundDto();
             roundDto.setQuestions(new ArrayList<>());
-            for (var question : round.get().getQuestions()){
+            for (var question : round.get().getQuestions()) {
                 var questionDto = new QuestionDto();
                 questionDto.setVocabId(question.getVocabId());
                 questionDto.setAnswers(new ArrayList<>());
-                for (var id : question.getTranslationIds()){
+                for (var id : question.getTranslationIds()) {
                     var answer = new AnswerDto();
                     answer.setTranslationId(id);
                     questionDto.getAnswers().add(answer);
@@ -105,8 +104,7 @@ public class GameServiceImpl implements GameService {
             }
             return vocabService.mapQuestion(roundDto);
             //return roundDto;
-        }
-        else {
+        } else {
             return null;
         }
     }

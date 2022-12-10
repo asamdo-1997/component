@@ -6,16 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Collections;
 
-import static org.junit.jupiter.api.Assertions.*;
-
-class TranslationServiceImplTest {
+class TranslationDaoImplTest {
 
     @Autowired
-    TranslationService translationService;
+    TranslationDao translationDao;
 
     @Test
     void getTranslationsForGame() {
-        var result = translationService.getTranslationsForGame(10, Collections.singletonList(1));
+        var result = translationDao.getTranslationsForGame(10, Collections.singletonList(1));
 
         Assert.assertNotNull(result);
     }

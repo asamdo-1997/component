@@ -1,15 +1,12 @@
 package com.example.vokabel.translation;
 
-import com.example.vokabel.answer.AnswerDto;
-import com.example.vokabel.answer.AnswerResultDto;
-
 import java.util.List;
 
 /**
 *
 * Das Interface für die Übersetzung.
 *
-* @see TranslationServiceImpl
+* @see TranslationDaoImpl
 * @author Dominik Asam, Ataullah Shinwari, Jonas Jacobsen
 *
 * @version 1.0
@@ -17,7 +14,7 @@ import java.util.List;
 
 
 
-public interface TranslationService {
+public interface TranslationDao {
 
     /**
      * Gibt die Überseetzung zurück

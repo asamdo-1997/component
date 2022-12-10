@@ -1,20 +1,20 @@
 package com.example.vokabel.translation;
 
-import com.example.vokabel.answer.AnswerDto;
-import com.example.vokabel.answer.AnswerResultDto;
-import com.example.vokabel.vocab.VocabService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
-public class TranslationServiceImpl implements TranslationService{
+public class TranslationDaoImpl implements TranslationDao {
+
+
+    private TranslationRepo translationRepo;
 
     @Autowired
-    private TranslationRepo translationRepo;
+    public TranslationDaoImpl(TranslationRepo translationRepo) {
+        this.translationRepo = translationRepo;
+    }
 
     @Override
     public List<Translation> getTranslationsForGame(int amount, List<Integer> notToUse){

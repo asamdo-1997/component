@@ -4,15 +4,15 @@ import org.junit.Before;
 import org.junit.jupiter.api.Test;
 import org.springframework.util.Assert;
 
-class UserServiceImplTest {
+class UserDaoImplTest {
 
 
-    private UserServiceImpl userService;
+    private UserDaoImpl userService;
 
-    @Before
+   /* @Before
     public void setUp(){
-        userService = new UserServiceImpl();
-    }
+        userService = new UserDaoImpl();
+    }*/
 
     @Test
     void createUser() {

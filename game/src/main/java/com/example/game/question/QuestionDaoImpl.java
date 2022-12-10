@@ -5,11 +5,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class QuestionServiceImpl implements QuestionService{
+public class QuestionDaoImpl implements QuestionDao {
 
-    @Autowired
     QuestionRepo questionRepo;
 
+    @Autowired
+    public QuestionDaoImpl(QuestionRepo questionRepo) {
+        this.questionRepo = questionRepo;
+    }
 
     @Override
     public Question findById(int id){
