@@ -12,4 +12,5 @@ public class QuestionDto {
     private int vocabId;
     private String name;
     private List<AnswerDto> answers;
+    private int questionId;
 }
