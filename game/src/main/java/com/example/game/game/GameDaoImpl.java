@@ -17,7 +17,7 @@ public class GameDaoImpl implements GameDao {
 
     @Override
     public void save(Game game) {
-
+        this.gameRepo.save(game);
     }
 
     @Override
