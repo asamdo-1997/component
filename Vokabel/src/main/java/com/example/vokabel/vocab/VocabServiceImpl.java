@@ -5,53 +5,39 @@ import com.example.vokabel.answer.AnswerResultDto;
 import com.example.vokabel.translation.Translation;
 import com.example.vokabel.translation.TranslationDto;
 import com.example.vokabel.translation.TranslationRepo;
-import com.example.vokabel.translation.TranslationDao;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.io.IOException;
+import org.springframework.transaction.annotation.Transactional;
 import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
 public class VocabServiceImpl implements VocabService {
 
-    private VocabDao vocabDao;
-    private TranslationDao translationDao;
+    private VocabRepo vocabRepo;
     private TranslationRepo translationRepo;
 
-    @Value("${rounds}")
-    String roundAmount;
-
-    @Value("${perRound}")
-    String perRound;
-
-    @Value("${translations}")
-    String translations;
 
     @Autowired
-    public VocabServiceImpl(VocabDao vocabDao, TranslationDao translationDao, TranslationRepo translationRepo) {
-        this.vocabDao = vocabDao;
-        this.translationDao = translationDao;
+    public VocabServiceImpl(VocabRepo vocabRepo, TranslationRepo translationRepo) {
+        this.vocabRepo = vocabRepo;
+        this.translationRepo = translationRepo;
         this.translationRepo = translationRepo;
     }
 
     @Override
+    @Transactional
     public List<Question> getQuestionsForGame(String category) {
 
 
-        var amount = Integer.parseInt(roundAmount) * Integer.parseInt(perRound);
-        //List<Vocab> vocabs = vocabRepo.findAllByCategoryEqualsOOrder(category);
-        List<Vocab> vocabs = vocabDao.findRandomByCategory(category, amount);
+        var amount = 9;
+        List<Vocab> vocabs = vocabRepo.findRandomByCategory(category, amount);
 
-        var translationsPerQuestions = Integer.parseInt(translations);
+        var translationsPerQuestions = 4;
         var translationAmount = amount * (translationsPerQuestions - 1);
         var vocabIds = vocabs.stream().map(x -> x.getId()).collect(Collectors.toList());
-        List<Translation> translations = translationDao
-                .getTranslationsForGame(translationAmount, vocabIds);
+        List<Translation> translations = translationRepo.findRandomByLimit(translationAmount, vocabIds);
 
         var questions = new ArrayList<Question>();
 
@@ -83,26 +69,19 @@ public class VocabServiceImpl implements VocabService {
 
 
     @Override
+    @Transactional
     public List<Translation> getVocabTranslation(int vocabId) {
-        return vocabDao.findById(vocabId).getTranslations();
+        return vocabRepo.findById(vocabId).get().getTranslations();
     }
+    
 
     @Override
-    public void addVocab(String word) {
-
-    }
-
-    @Override
-    public void addTranslation(int vocabId) {
-
-    }
-
-    @Override
-    public void importList(MultipartFile file, String category) throws IOException {
+    @Transactional
+    public void importList(String content, String category) {
 
         List<Vocab> result = new ArrayList<>();
 
-        String content = new String(file.getBytes());
+
         List<String> lines = new ArrayList<>();
         lines.addAll(Arrays.asList(content.split(System.lineSeparator())));
         lines.remove(lines.get(0));
@@ -136,7 +115,7 @@ public class VocabServiceImpl implements VocabService {
                         vocab.setCategory(category);
                         result.add(vocab);
                         System.out.println(vocab.getName());
-                        vocabDao.save(vocab);
+                        vocabRepo.save(vocab);
                     }
                 }
             }
@@ -151,11 +130,13 @@ public class VocabServiceImpl implements VocabService {
     }
 
     @Override
+    @Transactional
     public Vocab findVocabById(int id) {
-        return vocabDao.findById(id);
+        return vocabRepo.findById(id).get();
     }
 
     @Override
+    @Transactional
     public AnswerResultDto checkAnswer(AnswerDto answerDto) {
 
         var vocab = findVocabById(answerDto.getVocabId());
@@ -179,14 +160,16 @@ public class VocabServiceImpl implements VocabService {
     }
 
     @Override
+    @Transactional
     public List<String> getAllCategories() {
-        return vocabDao.findAllCategories();
+        return vocabRepo.findAllCategories();
     }
 
     @Override
+    @Transactional
     public RoundDto mapRound(RoundDto roundDto){
         for (var question : roundDto.getQuestions()){
-            var vocab = vocabDao.findById(question.getVocabId());
+            var vocab = vocabRepo.findById(question.getVocabId()).get();
             question.setName(vocab.getName());
 
             for (var translation : question.getAnswers()){

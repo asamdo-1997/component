@@ -3,7 +3,6 @@ package com.example.vokabel.vocab;
 
 import com.example.vokabel.answer.AnswerDto;
 import com.example.vokabel.answer.AnswerResultDto;
-import com.example.vokabel.translation.TranslationDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -16,17 +15,16 @@ import java.util.List;
 public class VocabController {
 
     VocabService vocabService;
-    TranslationDao translationDao;
 
     @Autowired
-    public VocabController(VocabService vocabService, TranslationDao translationDao) {
+    public VocabController(VocabService vocabService) {
         this.vocabService = vocabService;
-        this.translationDao = translationDao;
     }
 
     @PostMapping("/list/{category}")
     public void importList(@RequestParam("thumbnail") MultipartFile file, @PathVariable String category) throws IOException {
-        vocabService.importList(file, category);
+        String content = new String(file.getBytes());
+        vocabService.importList(content, category);
     }
 
     @GetMapping("/createGame/{category}")

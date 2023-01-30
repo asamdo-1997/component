@@ -9,6 +9,7 @@ import com.example.game.round.RoundDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,23 +18,19 @@ import java.util.List;
 public class GameServiceImpl implements GameService {
 
     VocabService vocabService;
-    GameDao gameDao;
+    GameRepo gameRepo;
 
-    @Value("${rounds}")
-    String roundAmount;
-
-    @Value("${perRound}")
-    String perRound;
 
     @Autowired
-    public GameServiceImpl(VocabService vocabService, GameDao gameDao) {
+    public GameServiceImpl(VocabService vocabService, GameRepo gameRepo) {
         this.vocabService = vocabService;
-        this.gameDao = gameDao;
+        this.gameRepo = gameRepo;
     }
 
     @Override
+    @Transactional
     public Game createGame(Integer user1, Integer user2, String category) {
-        var rounds = Integer.parseInt(roundAmount);
+        var rounds = 3;
         Game game = new Game();
         game.setUser1(user1);
         game.setUser2(user2);
@@ -47,19 +44,8 @@ public class GameServiceImpl implements GameService {
             var round = new Round();
             round.setGame(game);
 
-
-           /* var score1 = new Score();
-            score1.setPlayerId(user1);
-            score1.setRound(round);
-
-            var score2 = new Score();
-            score2.setPlayerId(user2);
-            score2.setRound(round);
-
-            round.setScores(Arrays.asList(score1,score2));*/
-
             List<Question> roundQuestions = new ArrayList<>();
-            var perRoundAmount = Integer.parseInt(perRound);
+            var perRoundAmount = 3;
             for (int x = 0; x < perRoundAmount; x++) {
                 var question = questions.get(vocabCount);
                 question.setRound(round);
@@ -70,23 +56,26 @@ public class GameServiceImpl implements GameService {
             game.getRounds().add(round);
         }
 
-        gameDao.save(game);
+        gameRepo.save(game);
         return game;
     }
 
     @Override
+    @Transactional
     public List<Game> getUserGames(int user) {
-        return gameDao.findAllByUser(user);
+        return gameRepo.findAllByUser1EqualsOrUser2Equals(user, user);
     }
 
     @Override
+    @Transactional
     public Game getGameById(int userId) {
-        return gameDao.findById(userId);
+        return gameRepo.findById(userId).get();
     }
 
     @Override
+    @Transactional
     public RoundDto getCurrentRound(int gameId) {
-        var game = gameDao.findById(gameId);
+        var game = gameRepo.findById(gameId).get();
         var round = game.getRounds().stream().filter(x -> !x.isDone()).findFirst();
         if (round.isPresent()) {
             var roundDto = new RoundDto();

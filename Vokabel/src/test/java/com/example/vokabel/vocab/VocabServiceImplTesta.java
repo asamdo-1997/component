@@ -1,7 +1,7 @@
 package com.example.vokabel.vocab;
 
 import com.example.vokabel.translation.Translation;
-import com.example.vokabel.translation.TranslationDao;
+import com.example.vokabel.translation.TranslationRepo;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -21,10 +21,10 @@ class VocabServiceImplTesta {
     VocabService vocabService;
 
     @MockBean
-    VocabDao vocabDao;
+    VocabRepo vocabRepo;
 
     @MockBean
-    TranslationDao translationDao;
+    TranslationRepo translationRepo;
 
 
     @BeforeEach
@@ -56,9 +56,9 @@ class VocabServiceImplTesta {
 
         var vocab = new Vocab();
         vocab.setId(1);
-        when(vocabDao.findRandomByCategory("", 9)).thenReturn(Collections.singletonList(vocab));
+        when(vocabRepo.findRandomByCategory("", 9)).thenReturn(Collections.singletonList(vocab));
         var translation = new Translation();
-        when(translationDao.getTranslationsForGame(27, new ArrayList<>())).thenReturn(Collections.singletonList(translation));
+        when(translationRepo.getTranslationsForGame(27, new ArrayList<>())).thenReturn(Collections.singletonList(translation));
 
         (vocabService.getQuestionsForGame(""), result);
 */

@@ -28,7 +28,7 @@ public class Question {
     @JsonBackReference
     private Round round;
 
-    @OneToMany
+    @OneToMany(mappedBy = "question")
     private List<Answer> answer;
 
     boolean done;
