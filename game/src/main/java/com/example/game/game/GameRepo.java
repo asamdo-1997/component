@@ -7,7 +7,5 @@ import java.util.List;
 
 @Repository
 public interface GameRepo extends JpaRepository<Game, Integer> {
-
-
     List<Game> findAllByUser1EqualsOrUser2Equals(int user1, int user2);
 }
