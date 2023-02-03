@@ -1,5 +1,7 @@
 package com.example.game.answer;
 
+import com.example.game.exception.ConnectionErrorException;
+import com.example.game.exception.NotFoundException;
 import com.example.game.feign.VocabService;
 import com.example.game.game.GameRepo;
 import com.example.game.question.QuestionRepo;
@@ -25,9 +27,22 @@ public class AnswerServiceImpl implements AnswerService {
 
     @Override
     @Transactional
-    public AnswerResultDto checkAnswer(AnswerDto input) {
-        var result = vocabService.checkAnswer(input);
-        var question = questionRepo.findById(input.getQuestionId()).get();
+    public AnswerResultDto checkAnswer(AnswerDto input) throws NotFoundException, ConnectionErrorException {
+        var result = new AnswerResultDto();
+        try {
+            result = vocabService.checkAnswer(input);
+        } catch (
+                ConnectionErrorException e) {
+            throw new ConnectionErrorException();
+        } catch (NotFoundException e) {
+            throw new NotFoundException("VocabService not found");
+        }
+
+        var questionOpt = questionRepo.findById(input.getQuestionId());
+        if (questionOpt.isEmpty()) {
+            throw new NotFoundException("Question not found");
+        }
+        var question = questionOpt.get();
         Answer answer = new Answer();
         answer.setUserId(input.getUserId());
         answer.setQuestion(question);
@@ -50,15 +65,15 @@ public class AnswerServiceImpl implements AnswerService {
         var game = round.getGame();
         if (answer.isCorrect()) {
 
-           //var game = question.getRound().getGame();
+            //var game = question.getRound().getGame();
             if (game.getUser1() == input.getUserId()) {
                 game.setScorePlayer1(game.getScorePlayer1() + 1);
             } else {
                 game.setScorePlayer2(game.getScorePlayer2() + 1);
             }
         }
-    
-        if (round.getQuestions().indexOf(question) == round.getQuestions().size() - 1){
+
+        if (round.getQuestions().indexOf(question) == round.getQuestions().size() - 1) {
 
             if (game.getNextUser() == game.getUser1()) {
                 game.setNextUser(game.getUser2());

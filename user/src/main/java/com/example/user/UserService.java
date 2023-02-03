@@ -9,9 +9,9 @@ public interface UserService {
 
     public List<User> getalluser();
 
-    public Optional<User> getByNutzername(String nutzername);
+    public User getByNutzername(String nutzername);
 
-    public Optional<User> getById(int id);
+    public User getById(int id);
 
 
 

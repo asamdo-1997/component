@@ -33,8 +33,8 @@ public class UserController {
     }
 
     @GetMapping("/getusernamebyid/{userid}")
-    public String getUserByName(@PathVariable int userid){
-        String username = userService.getById(userid).get().getNutzername();
+    public String getUserNameById(@PathVariable int userid){
+        String username = userService.getById(userid).getNutzername();
         log.info(username);
         return username;
     }
@@ -44,12 +44,8 @@ public class UserController {
         return userService.getalluser();
     }
     @GetMapping("/getbynutzername/{name}")
-    public User getallUser(@PathVariable String name){
-        if(userService.getByNutzername(name).isEmpty()){
-            return null;
-        }else {
-            return userService.getByNutzername(name).get();
-        }
+    public User getUserByName(@PathVariable String name){
+        return userService.getByNutzername(name);
     }
 
 }

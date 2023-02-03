@@ -1,6 +1,8 @@
 package com.example.game.game;
 
 import com.example.game.answer.AnswerDto;
+import com.example.game.exception.ConnectionErrorException;
+import com.example.game.exception.NotFoundException;
 import com.example.game.feign.VocabService;
 import com.example.game.round.Question;
 import com.example.game.round.QuestionDto;
@@ -29,7 +31,8 @@ public class GameServiceImpl implements GameService {
 
     @Override
     @Transactional
-    public Game createGame(Integer user1, Integer user2, String category) {
+    public Game createGame(Integer user1, Integer user2, String category)
+            throws ConnectionErrorException, NotFoundException{
         var rounds = 3;
         Game game = new Game();
         game.setUser1(user1);
@@ -37,7 +40,16 @@ public class GameServiceImpl implements GameService {
         game.setCategory(category);
         game.setNextUser(user1);
 
-        List<Question> questions = vocabService.getQuestionsForGame(category);
+        List<Question> questions;
+        try {
+            questions = vocabService.getQuestionsForGame(category);
+        } catch (ConnectionErrorException e) {
+            throw new ConnectionErrorException();
+        }
+        catch (NotFoundException e) {
+            throw new NotFoundException("Category not found");
+        }
+
         game.setRounds(new ArrayList<>());
         var vocabCount = 0;
         for (int i = 0; i < rounds; i++) {
@@ -68,14 +80,22 @@ public class GameServiceImpl implements GameService {
 
     @Override
     @Transactional
-    public Game getGameById(int userId) {
-        return gameRepo.findById(userId).get();
+    public Game getGameById(int userId) throws NotFoundException{
+        try {
+            return gameRepo.findById(userId).get();
+        } catch (NotFoundException e) {
+            throw new NotFoundException("Game not found");
+        }
     }
 
     @Override
     @Transactional
-    public RoundDto getCurrentRound(int gameId) {
-        var game = gameRepo.findById(gameId).get();
+    public RoundDto getCurrentRound(int gameId) throws ConnectionErrorException, NotFoundException{
+        var gameOpt = gameRepo.findById(gameId);
+        if (gameOpt.isEmpty()) {
+            throw new NotFoundException("Game not found");
+        }
+       var game = gameOpt.get();
         var round = game.getRounds().stream().filter(x -> !x.isDone()).findFirst();
         if (round.isPresent()) {
             var roundDto = new RoundDto();
@@ -92,8 +112,16 @@ public class GameServiceImpl implements GameService {
                 }
                 roundDto.getQuestions().add(questionDto);
             }
-            return vocabService.mapQuestion(roundDto);
-            //return roundDto;
+            try {
+                return vocabService.mapQuestion(roundDto);
+            }
+            catch (ConnectionErrorException e) {
+                throw new ConnectionErrorException();
+            }
+            catch (NotFoundException e) {
+                throw new NotFoundException("Category not found");
+            }
+
         } else {
             return null;
         }

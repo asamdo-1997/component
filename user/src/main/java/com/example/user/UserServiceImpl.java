@@ -31,14 +31,25 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional
-    public Optional<User> getByNutzername(String nutzername) {
-        return userRepo.findByNutzername(nutzername);
+    public User getByNutzername(String nutzername) throws NotFoundException {
+        Optional<User> user = userRepo.findByNutzername(nutzername);
+        if (user.isEmpty()){
+            throw new NotFoundException("User not found");
+        }
+        return user.get();
+
+
     }
 
     @Override
     @Transactional
-    public Optional<User> getById(int id) {
-        return userRepo.findById(id);
+    public User getById(int id) throws NotFoundException{
+        Optional<User> user = userRepo.findById(id);
+        if (user.isEmpty()){
+            throw new NotFoundException("User not found");
+        }
+            return user.get();
+
     }
 
     @Override
