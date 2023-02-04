@@ -19,10 +19,10 @@ import java.util.List;
 public interface VocabService {
 
     @RequestMapping(method = RequestMethod.GET, value = "/createGame/{category}")
-    List<Question> getQuestionsForGame(@PathVariable String category);
+    List<Question> getQuestionsForGame(@PathVariable(value = "category")  String category);
 
     @RequestMapping(method = RequestMethod.POST, value = "/checkAnswer")
-    AnswerResultDto checkAnswer(@RequestBody AnswerDto answerDto);
+    AnswerResultDto checkAnswer(@RequestBody AnswerDto input);
 
     @RequestMapping(method = RequestMethod.POST, value = "/mapRound")
     RoundDto mapQuestion(@RequestBody RoundDto roundDto);
