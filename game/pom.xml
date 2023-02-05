@@ -13,6 +13,7 @@
     <name>game-service</name>
     <description>Game-Service for vokabeltrainer</description>
 
+
     <dependencies>
 
         <dependency>
@@ -28,7 +29,6 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <version>3.0.2</version>
             </plugin>
         </plugins>
     </build>

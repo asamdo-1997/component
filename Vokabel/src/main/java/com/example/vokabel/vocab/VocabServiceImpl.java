@@ -2,6 +2,7 @@ package com.example.vokabel.vocab;
 
 import com.example.vokabel.answer.AnswerDto;
 import com.example.vokabel.answer.AnswerResultDto;
+import com.example.vokabel.exception.NotFoundException;
 import com.example.vokabel.translation.Translation;
 import com.example.vokabel.translation.TranslationDto;
 import com.example.vokabel.translation.TranslationRepo;
@@ -9,6 +10,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -70,10 +72,14 @@ public class VocabServiceImpl implements VocabService {
 
     @Override
     @Transactional
-    public List<Translation> getVocabTranslation(int vocabId) {
-        return vocabRepo.findById(vocabId).get().getTranslations();
+    public List<Translation> getVocabTranslation(int vocabId) throws NotFoundException{
+        var opt = vocabRepo.findById(vocabId);
+        if (opt.isEmpty()){
+            throw new NotFoundException("Vocab not found");
+        }
+        return opt.get().getTranslations();
     }
-    
+
 
     @Override
     @Transactional
@@ -97,7 +103,7 @@ public class VocabServiceImpl implements VocabService {
 
             for (var vocabEntry : vocabs) {
 
-                if (vocabEntry.length()>0) {
+                if (vocabEntry.length() > 0) {
                     var vocab = new Vocab();
                     vocab.setName(vocabEntry);
 
@@ -131,8 +137,12 @@ public class VocabServiceImpl implements VocabService {
 
     @Override
     @Transactional
-    public Vocab findVocabById(int id) {
-        return vocabRepo.findById(id).get();
+    public Vocab findVocabById(int id) throws NotFoundException{
+        var opt = vocabRepo.findById(id);
+        if (opt.isEmpty()){
+            throw new NotFoundException("Vocab not found");
+        }
+        return opt.get();
     }
 
     @Override
@@ -167,12 +177,19 @@ public class VocabServiceImpl implements VocabService {
 
     @Override
     @Transactional
-    public RoundDto mapRound(RoundDto roundDto){
-        for (var question : roundDto.getQuestions()){
-            var vocab = vocabRepo.findById(question.getVocabId()).get();
+    public RoundDto mapRound(RoundDto roundDto) throws NotFoundException{
+        for (var question : roundDto.getQuestions()) {
+            var vocabOpt = vocabRepo.findById(question.getVocabId());
+            Vocab vocab;
+            if (vocabOpt.isEmpty()){
+                throw new NotFoundException("Vocab not found");
+            }
+            else {
+                vocab = vocabOpt.get();
+            }
             question.setName(vocab.getName());
 
-            for (var translation : question.getAnswers()){
+            for (var translation : question.getAnswers()) {
                 var tempTranslation = translationRepo.findById(translation.getTranslationId()).get();
                 translation.setAnswerValue(tempTranslation.getName());
             }
