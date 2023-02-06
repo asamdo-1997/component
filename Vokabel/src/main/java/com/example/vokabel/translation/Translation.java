@@ -22,4 +22,7 @@ public class Translation {
     @JoinColumn(name = "vocabId")
     @JsonBackReference
     private Vocab vocab;
+
+    @Version
+    private Integer version;
 }

@@ -3,6 +3,8 @@ package com.example.game.exception;
 import feign.Response;
 import feign.codec.ErrorDecoder;
 
+import javax.persistence.OptimisticLockException;
+
 public class CustomErrorDecoder implements ErrorDecoder {
 
     @Override
@@ -12,6 +14,9 @@ public class CustomErrorDecoder implements ErrorDecoder {
         }
         if (response.status() == 500) {
             return new ConnectionErrorException();
+        }
+        if (response.status() == 423) {
+            return new OptimisticLockException();
         }
         return new Exception(response.reason());
     }

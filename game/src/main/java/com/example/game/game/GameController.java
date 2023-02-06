@@ -5,17 +5,16 @@ import com.example.game.answer.AnswerResultDto;
 import com.example.game.answer.AnswerService;
 import com.example.game.round.Round;
 import com.example.game.round.RoundDto;
-import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/game")
 @CrossOrigin()
-@Log4j2
+@EnableWebMvc
 public class GameController {
 
     GameService gameService;

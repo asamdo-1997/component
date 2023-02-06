@@ -23,5 +23,8 @@ public class Vocab {
     @Column
     private String category;
 
+    @Version
+    private Integer version;
+
     //
 }

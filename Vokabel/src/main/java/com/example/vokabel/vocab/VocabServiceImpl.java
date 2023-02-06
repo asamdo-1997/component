@@ -20,7 +20,6 @@ public class VocabServiceImpl implements VocabService {
     private VocabRepo vocabRepo;
     private TranslationRepo translationRepo;
 
-
     @Autowired
     public VocabServiceImpl(VocabRepo vocabRepo, TranslationRepo translationRepo) {
         this.vocabRepo = vocabRepo;
@@ -121,6 +120,7 @@ public class VocabServiceImpl implements VocabService {
                         vocab.setCategory(category);
                         result.add(vocab);
                         System.out.println(vocab.getName());
+
                         vocabRepo.save(vocab);
                     }
                 }

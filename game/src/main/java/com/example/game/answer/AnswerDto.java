@@ -11,4 +11,6 @@ public class AnswerDto {
     private int translationId;
     private String answerValue;
     private int questionId;
+
+    private Integer version;
 }

@@ -7,4 +7,6 @@ public class TranslationDto {
 
     private int id;
     private String name;
+
+    private Integer version;
 }

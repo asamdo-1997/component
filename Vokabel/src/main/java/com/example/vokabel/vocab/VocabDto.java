@@ -9,4 +9,6 @@ public class VocabDto {
 
     private String word;
     private List<String> translations;
+
+    private Integer version;
 }
