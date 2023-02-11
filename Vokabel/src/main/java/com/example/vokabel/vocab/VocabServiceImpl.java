@@ -23,7 +23,7 @@ public class VocabServiceImpl implements VocabService {
     @Autowired
     public VocabServiceImpl(VocabRepo vocabRepo, TranslationRepo translationRepo) {
         this.vocabRepo = vocabRepo;
-        this.translationRepo = translationRepo;
+        //this.translationRepo = translationRepo;
         this.translationRepo = translationRepo;
     }
 

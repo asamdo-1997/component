@@ -14,7 +14,6 @@ import java.util.Optional;
 @Log4j2
 public class UserController {
 
-
     UserService userService;
 
     @Autowired

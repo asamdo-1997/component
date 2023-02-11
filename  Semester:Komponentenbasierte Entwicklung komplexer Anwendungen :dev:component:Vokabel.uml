@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>/Users/jonasjacobsen/Desktop/Uni/Master/3. Semester/Komponentenbasierte Entwicklung komplexer Anwendungen /dev/component/Vokabel</OriginalElement>
+  <nodes>
+    <node x="320.8288017925413" y="220.0520747424573">com.example.vokabel.exception.NotFoundException</node>
+    <node x="315.10189184483374" y="11.682099406397839">com.example.vokabel.exception.RestResponseEntityExceptionHandler</node>
+    <node x="0.0" y="950.0">com.example.vokabel.vocab.RoundDto</node>
+    <node x="308.0" y="884.0">com.example.vokabel.answer.AnswerResultDto</node>
+    <node x="268.68917624521026" y="1757.0">com.example.vokabel.vocab.VocabController</node>
+    <node x="746.3836206896551" y="917.0">com.example.vokabel.vocab.Question</node>
+    <node x="746.3836206896551" y="436.0">com.example.vokabel.vocab.VocabDto</node>
+    <node x="1191.06417624521" y="1724.0">com.example.vokabel.vocab.VocabServiceImplTesta</node>
+    <node x="1123.6599482991032" y="118.55628395136364">com.example.vokabel.vocab.Vocab</node>
+    <node x="1079.598893036779" y="884.0">com.example.vokabel.translation.Translation</node>
+    <node x="1118.06417624521" y="1430.0">com.example.vokabel.translation.TranslationRepo</node>
+    <node x="474.5" y="1364.0">com.example.vokabel.vocab.VocabService</node>
+    <node x="9.5" y="370.0">com.example.vokabel.vocab.QuestionDto</node>
+    <node x="31.0" y="0.0">com.example.vokabel.answer.AnswerDto</node>
+    <node x="733.9391762452103" y="1713.0">com.example.vokabel.vocab.VocabServiceImpl</node>
+    <node x="358.5" y="436.0">com.example.vokabel.translation.TranslationDto</node>
+    <node x="316.6691504740522" y="118.55628395136364">com.example.vokabel.VokabelApplication</node>
+    <node x="1305.562294451966" y="919.3425518121055">com.example.vokabel.vocab.VocabRepo</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.example.vokabel.vocab.QuestionDto" target="com.example.vokabel.answer.AnswerDto" relationship="DEPENDENCY">
+      <point x="-67.25" y="-226.0" />
+      <point x="76.75" y="345.0" />
+      <point x="87.5" y="345.0" />
+      <point x="-56.5" y="160.0" />
+    </edge>
+    <edge source="com.example.vokabel.vocab.VocabServiceImplTesta" target="com.example.vokabel.translation.TranslationRepo" relationship="TO_ONE">
+      <point x="62.5" y="-116.0" />
+      <point x="1378.56417624521" y="1692.0" />
+      <point x="1381.1886973180076" y="1692.0" />
+      <point x="1381.1886973180076" y="1662.0" />
+      <point x="1463.9473180076627" y="1662.0" />
+      <point x="1463.9473180076627" y="1572.0" />
+      <point x="1415.06417624521" y="1572.0" />
+      <point x="99.0" y="27.5" />
+    </edge>
+    <edge source="com.example.vokabel.vocab.VocabServiceImpl" target="com.example.vokabel.vocab.VocabService" relationship="REALIZATION">
+      <point x="-111.33333333333337" y="-127.0" />
+      <point x="789.6058429118771" y="1672.0" />
+      <point x="530.1666666666666" y="1672.0" />
+      <point x="-111.33333333333337" y="93.5" />
+    </edge>
+    <edge source="com.example.vokabel.vocab.VocabService" target="com.example.vokabel.vocab.RoundDto" relationship="DEPENDENCY">
+      <point x="0.0" y="-93.5" />
+      <point x="641.5" y="1342.0" />
+      <point x="735.8836206896551" y="1342.0" />
+      <point x="735.8836206896551" y="1322.0" />
+      <point x="144.0" y="1322.0" />
+      <point x="0.0" y="127.0" />
+    </edge>
+    <edge source="com.example.vokabel.vocab.VocabServiceImplTesta" target="com.example.vokabel.translation.TranslationRepo" relationship="DEPENDENCY">
+      <point x="-62.5" y="-116.0" />
+      <point x="1253.56417624521" y="1692.0" />
+      <point x="1082.3141762452103" y="1692.0" />
+      <point x="1082.3141762452103" y="1662.0" />
+      <point x="1107.5641762452103" y="1662.0" />
+      <point x="1107.5641762452103" y="1592.0" />
+      <point x="1217.06417624521" y="1592.0" />
+      <point x="-99.0" y="27.5" />
+    </edge>
+    <edge source="com.example.vokabel.answer.AnswerResultDto" target="com.example.vokabel.translation.TranslationDto" relationship="TO_MANY">
+      <point x="77.99999999999994" y="-193.0" />
+      <point x="516.75" y="884.0" />
+      <point x="52.74999999999994" y="160.0" />
+    </edge>
+    <edge source="com.example.vokabel.vocab.VocabServiceImpl" target="com.example.vokabel.vocab.RoundDto" relationship="DEPENDENCY">
+      <point x="-1.1368683772161603E-13" y="-127.0" />
+      <point x="900.9391762452102" y="1592.0" />
+      <point x="149.4999999999999" y="1592.0" />
+      <point x="149.4999999999999" y="1342.0" />
+      <point x="144.0" y="1342.0" />
+      <point x="0.0" y="127.0" />
+    </edge>
+    <edge source="com.example.vokabel.vocab.VocabServiceImplTesta" target="com.example.vokabel.vocab.VocabRepo" relationship="DEPENDENCY">
+      <point x="-62.5" y="-116.0" />
+      <point x="1253.56417624521" y="1692.0" />
+      <point x="1082.3141762452103" y="1692.0" />
+      <point x="1082.3141762452103" y="1682.0" />
+      <point x="1157.2581417624524" y="1682.0" />
+      <point x="1157.2581417624524" y="1592.0" />
+      <point x="1392.312294451966" y="1592.0" />
+      <point x="-86.75" y="38.5" />
+    </edge>
+    <edge source="com.example.vokabel.vocab.VocabServiceImplTesta" target="com.example.vokabel.vocab.VocabRepo" relationship="TO_ONE">
+      <point x="62.5" y="-116.0" />
+      <point x="1378.56417624521" y="1692.0" />
+      <point x="1382.813816280379" y="1692.0" />
+      <point x="1382.813816280379" y="1662.0" />
+      <point x="1565.812294451966" y="1662.0" />
+      <point x="86.75" y="38.5" />
+    </edge>
+    <edge source="com.example.vokabel.vocab.Vocab" target="com.example.vokabel.translation.Translation" relationship="TO_MANY">
+      <point x="72.5" y="226.0" />
+      <point x="1341.1599482991032" y="853.0" />
+      <point x="1237.848893036779" y="853.0" />
+      <point x="52.75" y="-193.0" />
+    </edge>
+    <edge source="com.example.vokabel.answer.AnswerResultDto" target="com.example.vokabel.translation.TranslationDto" relationship="DEPENDENCY">
+      <point x="-78.00000000000006" y="-193.0" />
+      <point x="411.25" y="884.0" />
+      <point x="-52.75" y="160.0" />
+    </edge>
+    <edge source="com.example.vokabel.vocab.VocabRepo" target="com.example.vokabel.vocab.Vocab" relationship="DEPENDENCY">
+      <point x="0.0" y="-38.5" />
+      <point x="1479.062294451966" y="863.0" />
+      <point x="1196.1599482991032" y="863.0" />
+      <point x="-72.5" y="226.0" />
+    </edge>
+    <edge source="com.example.vokabel.vocab.VocabController" target="com.example.vokabel.vocab.Question" relationship="DEPENDENCY">
+      <point x="-80.5" y="-83.0" />
+      <point x="349.18917624521026" y="1672.0" />
+      <point x="64.02203065134097" y="1672.0" />
+      <point x="64.02203065134097" y="1322.0" />
+      <point x="885.3836206896551" y="1322.0" />
+      <point x="0.0" y="160.0" />
+    </edge>
+    <edge source="com.example.vokabel.vocab.QuestionDto" target="com.example.vokabel.answer.AnswerDto" relationship="TO_MANY">
+      <point x="67.25" y="-226.0" />
+      <point x="211.25" y="345.0" />
+      <point x="200.5" y="345.0" />
+      <point x="56.5" y="160.0" />
+    </edge>
+    <edge source="com.example.vokabel.translation.Translation" target="com.example.vokabel.vocab.Vocab" relationship="DEPENDENCY">
+      <point x="-52.75" y="-193.0" />
+      <point x="1132.348893036779" y="863.0" />
+      <point x="1196.1599482991032" y="863.0" />
+      <point x="-72.5" y="226.0" />
+    </edge>
+    <edge source="com.example.vokabel.vocab.Vocab" target="com.example.vokabel.translation.Translation" relationship="DEPENDENCY">
+      <point x="-72.5" y="226.0" />
+      <point x="1196.1599482991032" y="863.0" />
+      <point x="1132.348893036779" y="863.0" />
+      <point x="-52.75" y="-193.0" />
+    </edge>
+    <edge source="com.example.vokabel.vocab.VocabServiceImplTesta" target="com.example.vokabel.vocab.Question" relationship="DEPENDENCY">
+      <point x="-62.5" y="-116.0" />
+      <point x="1253.56417624521" y="1682.0" />
+      <point x="1082.3141762452103" y="1682.0" />
+      <point x="1082.3141762452103" y="1592.0" />
+      <point x="935.4386973180076" y="1592.0" />
+      <point x="935.4386973180076" y="1332.0" />
+      <point x="885.3836206896551" y="1332.0" />
+      <point x="0.0" y="160.0" />
+    </edge>
+    <edge source="com.example.vokabel.translation.Translation" target="com.example.vokabel.vocab.Vocab" relationship="TO_ONE">
+      <point x="52.75" y="-193.0" />
+      <point x="1237.848893036779" y="853.0" />
+      <point x="1341.1599482991032" y="853.0" />
+      <point x="72.5" y="226.0" />
+    </edge>
+    <edge source="com.example.vokabel.vocab.VocabService" target="com.example.vokabel.vocab.Question" relationship="DEPENDENCY">
+      <point x="0.0" y="-93.5" />
+      <point x="641.5" y="1342.0" />
+      <point x="735.8836206896551" y="1342.0" />
+      <point x="735.8836206896551" y="1332.0" />
+      <point x="885.3836206896551" y="1332.0" />
+      <point x="0.0" y="160.0" />
+    </edge>
+    <edge source="com.example.vokabel.vocab.VocabController" target="com.example.vokabel.vocab.VocabService" relationship="DEPENDENCY">
+      <point x="-80.5" y="-83.0" />
+      <point x="349.18917624521026" y="1672.0" />
+      <point x="673.4391762452103" y="1672.0" />
+      <point x="673.4391762452103" y="1592.0" />
+      <point x="641.5" y="1592.0" />
+      <point x="0.0" y="93.5" />
+    </edge>
+    <edge source="com.example.vokabel.vocab.VocabServiceImpl" target="com.example.vokabel.translation.TranslationRepo" relationship="DEPENDENCY">
+      <point x="-1.1368683772161603E-13" y="-127.0" />
+      <point x="900.9391762452102" y="1662.0" />
+      <point x="1107.5641762452103" y="1662.0" />
+      <point x="1107.5641762452103" y="1592.0" />
+      <point x="1217.06417624521" y="1592.0" />
+      <point x="-99.0" y="27.5" />
+    </edge>
+    <edge source="com.example.vokabel.vocab.VocabController" target="com.example.vokabel.vocab.RoundDto" relationship="DEPENDENCY">
+      <point x="-80.5" y="-83.0" />
+      <point x="349.18917624521026" y="1672.0" />
+      <point x="64.02203065134097" y="1672.0" />
+      <point x="64.02203065134097" y="1322.0" />
+      <point x="144.0" y="1322.0" />
+      <point x="0.0" y="127.0" />
+    </edge>
+    <edge source="com.example.vokabel.vocab.VocabServiceImplTesta" target="com.example.vokabel.vocab.VocabService" relationship="TO_ONE">
+      <point x="62.5" y="-116.0" />
+      <point x="1378.56417624521" y="1692.0" />
+      <point x="1381.1886973180076" y="1692.0" />
+      <point x="1381.1886973180076" y="1592.0" />
+      <point x="752.8333333333333" y="1592.0" />
+      <point x="111.33333333333326" y="93.5" />
+    </edge>
+    <edge source="com.example.vokabel.vocab.VocabController" target="com.example.vokabel.vocab.VocabService" relationship="TO_ONE">
+      <point x="80.5" y="-83.0" />
+      <point x="510.18917624521026" y="1672.0" />
+      <point x="730.0" y="1672.0" />
+      <point x="730.0" y="1592.0" />
+      <point x="752.8333333333333" y="1592.0" />
+      <point x="111.33333333333326" y="93.5" />
+    </edge>
+    <edge source="com.example.vokabel.vocab.VocabServiceImplTesta" target="com.example.vokabel.vocab.VocabService" relationship="DEPENDENCY">
+      <point x="-62.5" y="-116.0" />
+      <point x="1253.56417624521" y="1692.0" />
+      <point x="1082.3141762452103" y="1692.0" />
+      <point x="1082.3141762452103" y="1592.0" />
+      <point x="641.5" y="1592.0" />
+      <point x="0.0" y="93.5" />
+    </edge>
+    <edge source="com.example.vokabel.vocab.VocabServiceImpl" target="com.example.vokabel.vocab.Question" relationship="DEPENDENCY">
+      <point x="-1.1368683772161603E-13" y="-127.0" />
+      <point x="900.9391762452103" y="1332.0" />
+      <point x="885.3836206896551" y="1332.0" />
+      <point x="0.0" y="160.0" />
+    </edge>
+    <edge source="com.example.vokabel.vocab.RoundDto" target="com.example.vokabel.vocab.QuestionDto" relationship="TO_MANY">
+      <point x="72.0" y="-127.0" />
+      <point x="211.25" y="950.0" />
+      <point x="67.25" y="226.0" />
+    </edge>
+    <edge source="com.example.vokabel.vocab.VocabController" target="com.example.vokabel.answer.AnswerResultDto" relationship="DEPENDENCY">
+      <point x="-80.5" y="-83.0" />
+      <point x="349.18917624521026" y="1672.0" />
+      <point x="64.02203065134097" y="1672.0" />
+      <point x="64.02203065134097" y="1322.0" />
+      <point x="464.0" y="1322.0" />
+      <point x="0.0" y="193.0" />
+    </edge>
+    <edge source="com.example.vokabel.vocab.VocabServiceImpl" target="com.example.vokabel.translation.TranslationRepo" relationship="TO_ONE">
+      <point x="111.33333333333326" y="-127.0" />
+      <point x="1012.2725095785436" y="1682.0" />
+      <point x="1381.1886973180076" y="1682.0" />
+      <point x="1381.1886973180076" y="1662.0" />
+      <point x="1463.9473180076627" y="1662.0" />
+      <point x="1463.9473180076627" y="1572.0" />
+      <point x="1415.06417624521" y="1572.0" />
+      <point x="99.0" y="27.5" />
+    </edge>
+    <edge source="com.example.vokabel.vocab.VocabServiceImpl" target="com.example.vokabel.translation.Translation" relationship="DEPENDENCY">
+      <point x="-1.1368683772161603E-13" y="-127.0" />
+      <point x="900.9391762452102" y="1592.0" />
+      <point x="1107.5641762452103" y="1592.0" />
+      <point x="1107.5641762452103" y="1332.0" />
+      <point x="1185.098893036779" y="1332.0" />
+      <point x="0.0" y="193.0" />
+    </edge>
+    <edge source="com.example.vokabel.vocab.VocabService" target="com.example.vokabel.vocab.Vocab" relationship="DEPENDENCY">
+      <point x="0.0" y="-93.5" />
+      <point x="641.5" y="1342.0" />
+      <point x="735.8836206896551" y="1342.0" />
+      <point x="735.8836206896551" y="792.077014998975" />
+      <point x="1196.1599482991032" y="792.077014998975" />
+      <point x="-72.5" y="226.0" />
+    </edge>
+    <edge source="com.example.vokabel.vocab.VocabServiceImpl" target="com.example.vokabel.vocab.Vocab" relationship="DEPENDENCY">
+      <point x="-1.1368683772161603E-13" y="-127.0" />
+      <point x="900.9391762452102" y="1592.0" />
+      <point x="1034.8836206896551" y="1592.0" />
+      <point x="1034.8836206896551" y="863.0" />
+      <point x="1196.1599482991032" y="863.0" />
+      <point x="-72.5" y="226.0" />
+    </edge>
+    <edge source="com.example.vokabel.translation.TranslationRepo" target="com.example.vokabel.translation.Translation" relationship="DEPENDENCY">
+      <point x="0.0" y="-27.5" />
+      <point x="1316.06417624521" y="1332.0" />
+      <point x="1185.098893036779" y="1332.0" />
+      <point x="0.0" y="193.0" />
+    </edge>
+    <edge source="com.example.vokabel.vocab.RoundDto" target="com.example.vokabel.vocab.QuestionDto" relationship="DEPENDENCY">
+      <point x="-72.0" y="-127.0" />
+      <point x="76.75" y="950.0" />
+      <point x="-67.25" y="226.0" />
+    </edge>
+    <edge source="com.example.vokabel.vocab.VocabService" target="com.example.vokabel.answer.AnswerResultDto" relationship="DEPENDENCY">
+      <point x="0.0" y="-93.5" />
+      <point x="641.5" y="1342.0" />
+      <point x="735.8836206896551" y="1342.0" />
+      <point x="735.8836206896551" y="1292.0" />
+      <point x="464.0" y="1292.0" />
+      <point x="0.0" y="193.0" />
+    </edge>
+    <edge source="com.example.vokabel.vocab.VocabService" target="com.example.vokabel.translation.Translation" relationship="DEPENDENCY">
+      <point x="0.0" y="-93.5" />
+      <point x="641.5" y="1342.0" />
+      <point x="735.8836206896551" y="1342.0" />
+      <point x="735.8836206896551" y="1332.0" />
+      <point x="1185.098893036779" y="1332.0" />
+      <point x="0.0" y="193.0" />
+    </edge>
+    <edge source="com.example.vokabel.vocab.VocabServiceImpl" target="com.example.vokabel.answer.AnswerResultDto" relationship="DEPENDENCY">
+      <point x="-1.1368683772161603E-13" y="-127.0" />
+      <point x="900.9391762452102" y="1592.0" />
+      <point x="464.0" y="1592.0" />
+      <point x="0.0" y="193.0" />
+    </edge>
+    <edge source="com.example.vokabel.vocab.VocabServiceImpl" target="com.example.vokabel.vocab.VocabRepo" relationship="TO_ONE">
+      <point x="111.33333333333326" y="-127.0" />
+      <point x="1012.2725095785436" y="1682.0" />
+      <point x="1565.812294451966" y="1682.0" />
+      <point x="86.75" y="38.5" />
+    </edge>
+    <edge source="com.example.vokabel.vocab.VocabServiceImpl" target="com.example.vokabel.vocab.VocabRepo" relationship="DEPENDENCY">
+      <point x="-1.1368683772161603E-13" y="-127.0" />
+      <point x="900.9391762452102" y="1662.0" />
+      <point x="1157.2581417624524" y="1662.0" />
+      <point x="1157.2581417624524" y="1592.0" />
+      <point x="1392.312294451966" y="1592.0" />
+      <point x="-86.75" y="38.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic" zoom="0.3937605739913186" showDependencies="true" x="897.3494927529995" y="1284.2945046361422" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Methods</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

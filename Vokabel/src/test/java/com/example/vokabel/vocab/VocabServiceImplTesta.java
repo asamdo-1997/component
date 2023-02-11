@@ -74,16 +74,4 @@ class VocabServiceImplTesta {
         question.setTranslationIds(translations);
         return question;
     }
-
-    @Test
-    void getVocabTranslation() {
-    }
-
-    @Test
-    void checkAnswer() {
-    }
-
-    @Test
-    void mapRound() {
-    }
 }
